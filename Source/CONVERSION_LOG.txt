@@ -1,0 +1,49 @@
+GEOMETRY: 338 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 4288, 3008), (('armor', 'white'), 3072, 1504), (('body', 'LED'), 11392, 15360), (('body', 'battery'), 3072, 1504), (('body', 'bronze'), 56952, 51296), (('body', 'frame'), 8928, 7112), (('body', 'label'), 11920, 15008), (('body', 'steel'), 39680, 28416), (('body', 'titanium'), 4944, 3568)]
+BBOX_METERS [-1.265, -2.4447, -1.265] [1.265, 2.4447, 1.265]
+TRIANGLES 126776 MU_BYTES 6140564
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_OctoSupport_XL.mu
+
+--- RW_OctoSupport_Medium ---
+GEOMETRY: 331 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 4288, 3008), (('armor', 'white'), 3072, 1504), (('body', 'LED'), 11392, 15360), (('body', 'battery'), 3072, 1504), (('body', 'bronze'), 52461, 48052), (('body', 'frame'), 8484, 6796), (('body', 'label'), 11920, 15008), (('body', 'steel'), 39680, 28416), (('body', 'titanium'), 3708, 2676)]
+BBOX_METERS [-1.265, -1.3947, -1.265] [1.265, 1.3947, 1.265]
+TRIANGLES 122324 MU_BYTES 5889676
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_OctoSupport_Medium.mu
+
+--- RW_HexSupport_Long ---
+GEOMETRY: 238 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 3216, 2256), (('armor', 'white'), 2304, 1128), (('body', 'LED'), 8544, 11520), (('body', 'battery'), 2304, 1128), (('body', 'bronze'), 43280, 37896), (('body', 'frame'), 7332, 5744), (('body', 'label'), 12018, 15008), (('body', 'steel'), 22320, 15984), (('body', 'titanium'), 3536, 2544)]
+BBOX_METERS [-0.64, -1.6187, -0.5613] [0.64, 1.6187, 0.5613]
+TRIANGLES 93208 MU_BYTES 4476788
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_HexSupport_Long.mu
+
+--- RW_HexSupport_Medium ---
+GEOMETRY: 217 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 3216, 2256), (('armor', 'white'), 2304, 1128), (('body', 'LED'), 8544, 11520), (('body', 'battery'), 2304, 1128), (('body', 'bronze'), 32924, 30468), (('body', 'frame'), 6000, 4796), (('body', 'label'), 12018, 15008), (('body', 'steel'), 22320, 15984), (('body', 'titanium'), 884, 636)]
+BBOX_METERS [-0.64, -0.9187, -0.5613] [0.64, 0.9187, 0.5613]
+TRIANGLES 82924 MU_BYTES 3894504
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_HexSupport_Medium.mu
+
+--- RW_Octo25_Adapter ---
+GEOMETRY: 54 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('body', 'bronze'), 18230, 20400), (('body', 'frame'), 384, 188), (('body', 'label'), 11884, 15008), (('body', 'steel'), 22688, 16224), (('body', 'white'), 248, 344)]
+BBOX_METERS [-1.2982, -0.425, -1.2982] [1.2982, 0.419, 1.2982]
+TRIANGLES 52164 MU_BYTES 2337618
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_Octo25_Adapter.mu
+
+--- RW_Hex125_Adapter ---
+GEOMETRY: 50 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('body', 'bronze'), 17482, 20024), (('body', 'frame'), 384, 188), (('body', 'label'), 11886, 15008), (('body', 'steel'), 21272, 15208), (('body', 'white'), 234, 322)]
+BBOX_METERS [-0.6563, -0.315, -0.6563] [0.6563, 0.312, 0.6563]
+TRIANGLES 50750 MU_BYTES 2251018
+OUTPUT /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/GameData/RoosterWorksStationSupport/Models/RW_Hex125_Adapter.mu
+
+SUCCESS: six-part test ZIP: /mnt/data/RoosterWorks-Station-Support-v0.8.3-Package/RoosterWorks-Station-Support-v0.8.3-SIX-PART-TEST.zip
+Approved Octo XL: badge mounting offset only; five new models generated.

@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.0 — Initial release package (2026-10-09)
+
+- Prepared the six visually approved RoosterWorks Station Support parts for a clean distributable release.
+- Preserved **all six approved v0.8.4 .mu models and all six gameplay .cfg files, byte-for-byte**.
+- Updated the bundled version metadata to 1.0.0 and added release documentation, checksums, and CKAN submission metadata.
+- Included original MIT licensing and the full model / converter source in the GitHub source package.
+- **No animation or actual flashing LEDs** are introduced in this release.
+- Save/load, full collision testing, and Kerbalism timewarp persistence remain candidates for further gameplay validation.
+
+---
+
+
 ## v0.8.4 — Octo badge and battery orientation (2026-10-09)
 - Rotated all eight Octo XL battery assemblies 180 degrees around each face's local vertical axis, showing panels and green LEDs outward.
 - Moved RoosterWorks badges on both Octo XL and Octo Medium 17 mm farther outward, without changing their size or text orientation.

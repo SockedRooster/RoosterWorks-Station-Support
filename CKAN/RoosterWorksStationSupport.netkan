@@ -1,0 +1,27 @@
+{
+  "spec_version": "v1.4",
+  "identifier": "RoosterWorksStationSupport",
+  "name": "RoosterWorks Station Support",
+  "abstract": "Original modular station-support girders with permanent EC/monopropellant storage and stack adapters.",
+  "author": "SockedRooster",
+  "license": "MIT",
+  "$kref": "#/ckan/github/SockedRooster/RoosterWorks-Station-Support/asset_match/^RoosterWorks-Station-Support-v[0-9]+[.][0-9]+[.][0-9]+[.]zip$",
+  "x_netkan_version_edit": {
+    "find": "^[vV](?<version>.*)$",
+    "replace": "${version}"
+  },
+  "ksp_version": "1.12.5",
+  "tags": [
+    "parts"
+  ],
+  "resources": {
+    "repository": "https://github.com/SockedRooster/RoosterWorks-Station-Support",
+    "bugtracker": "https://github.com/SockedRooster/RoosterWorks-Station-Support/issues"
+  },
+  "install": [
+    {
+      "find": "RoosterWorksStationSupport",
+      "install_to": "GameData"
+    }
+  ]
+}
