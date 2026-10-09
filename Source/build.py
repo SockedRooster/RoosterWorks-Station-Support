@@ -67,7 +67,7 @@ def rod(a,b,r=0.035,sides=9):
             else:m.tri(center,row[j],row[j+1])
     return m
 
-def closed_tank(cx,cz,y0,y1,r,sides=20):
+def closed_tank(cx,cz,y0,y1,r,sides=32):
     m=Mesh(); rings=[]
     for yy,v in [(y0,0),(y1,1)]:
         row=[]
@@ -90,19 +90,26 @@ def closed_tank(cx,cz,y0,y1,r,sides=20):
             else:m.tri(center,rim[k],rim[j])
     return m
 
-def label_quad(angle,radius,y,width=.65,height=.17):
-    # Radially-mounted panel at the outward face, with a readable dedicated UV.
+def label_quad(angle,radius,y,width=.65,height=.17,offset=.012):
+    # Two explicit faces with independent UVs so the RoosterWorks badge reads correctly
+    # from both sides and no face accidentally reuses mirrored winding.
     dx,dz=math.cos(angle),math.sin(angle);tx,tz=dz,-dx
-    pts=[]
-    for side,yy,u,v in [(-1,y-height/2,0,0),(1,y-height/2,1,0),
-                        (1,y+height/2,1,1),(-1,y+height/2,0,1)]:
-        pts.append((radius*dx +side*width/2*tx, yy, radius*dz+side*width/2*tz))
-    m=Mesh(); n=(dx,0,dz)
-    ids=[m.add(p,n,uv) for p,uv in zip(pts,[(1,1),(0,1),(0,0),(1,0)])]
-    m.tri(ids[0],ids[1],ids[2]);m.tri(ids[0],ids[2],ids[3])
-    # Mirror UV axes to correct in-game reversed/upright RoosterWorks lettering.
-    # Second face protects against in-game backface winding variation
-    m.tri(ids[2],ids[1],ids[0]);m.tri(ids[3],ids[2],ids[0])
+    center=(radius*dx,y,radius*dz)
+    def quad(side_sign, flip_u=False):
+        n=(dx*side_sign,0,dz*side_sign)
+        cx,cy,cz=(center[0]+n[0]*offset,center[1],center[2]+n[2]*offset)
+        p0=(cx-width/2*tx,cy-height/2,cz-width/2*tz)
+        p1=(cx+width/2*tx,cy-height/2,cz+width/2*tz)
+        p2=(cx+width/2*tx,cy+height/2,cz+width/2*tz)
+        p3=(cx-width/2*tx,cy+height/2,cz-width/2*tz)
+        return (n,[p0,p1,p2,p3],([(1,1),(0,1),(0,0),(1,0)] if flip_u else [(0,1),(1,1),(1,0),(0,0)]))
+    m=Mesh()
+    for n,pts,uvs in (quad(1,False), quad(-1,True)):
+        ids=[m.add(p,n,uv) for p,uv in zip(pts,uvs)]
+        if n[0]*dx + n[2]*dz > 0:
+            m.tri(ids[0],ids[1],ids[2]);m.tri(ids[0],ids[2],ids[3])
+        else:
+            m.tri(ids[2],ids[1],ids[0]);m.tri(ids[3],ids[2],ids[0])
     return m
 
 def panel_between(a,b,yl,yh,shade_offset=.967):
@@ -264,38 +271,38 @@ def child(w,name,mesh,mat=0,collider=None):
 def material_textures():
     rng=np.random.default_rng(2026)
     names=[]
-    def create(name,base,size=512,pattern=None):
+    def create(name,base,size=1024,pattern=None):
         a=np.zeros((size,size,3),dtype=np.float64)
-        n=rng.normal(0,3.8,(size,size))
-        streak=np.sin(np.arange(size)[:,None]*.16)*2.6
-        for i,v in enumerate(base):a[:,:,i]=v+n+streak
+        n=rng.normal(0,2.0,(size,size))
+        soft=np.sin(np.arange(size)[:,None]*.055)*1.2 + np.cos(np.arange(size)[None,:]*.047)*0.9
+        for i,v in enumerate(base):a[:,:,i]=v+n+soft
         im=Image.fromarray(np.uint8(np.clip(a,0,255)),'RGB');d=ImageDraw.Draw(im)
         if pattern:pattern(d,size)
         im.save(MD/(name+'.png'),optimize=True);names.append(name)
     def frame(d,s):
-        for t in range(0,s,64):d.line([(0,t),(s,t)],fill=(89,100,111),width=2)
-        for t in range(28,s,96):d.line([(t,0),(t,s)],fill=(40,47,55),width=3)
+        for t in range(0,s,96):d.line([(0,t),(s,t)],fill=(92,103,113),width=2)
+        for t in range(48,s,96):d.line([(0,t),(s,t)],fill=(72,84,94),width=1)
+        for t in range(34,s,160):d.line([(t,0),(t,s)],fill=(52,61,70),width=2)
     def ceramic(d,s):
-        for t in range(0,s,112):d.line([(0,t),(s,t)],fill=(161,171,176),width=3)
-        for t in range(52,s,112):d.line([(0,t),(s,t)],fill=(249,245,235),width=2)
+        for t in range(0,s,136):d.line([(0,t),(s,t)],fill=(172,180,184),width=2)
+        for t in range(68,s,136):d.line([(0,t),(s,t)],fill=(236,236,230),width=1)
     def batteries(d,s):
-        for x in range(18,s,128):
-            for y in range(18,s,128):
-                d.rounded_rectangle((x,y,x+93,y+93),radius=6,fill=(39,50,60),outline=(108,122,133),width=3)
-                for a in range(16,85,17):d.line((x+12,y+a,x+80,y+a),fill=(71,89,108),width=3)
-                d.ellipse((x+72,y+72,x+81,y+81),fill=(76,194,203))
+        for x in range(18,s,132):
+            for y in range(18,s,132):
+                d.rounded_rectangle((x,y,x+96,y+96),radius=8,fill=(43,54,66),outline=(102,116,128),width=2)
+                for a in range(16,86,18):d.line((x+12,y+a,x+84,y+a),fill=(79,96,113),width=2)
+                d.ellipse((x+76,y+76,x+84,y+84),fill=(76,194,203))
     def gold(d,s):
-        for t in range(8,s,58):
-            d.line((0,t,s,t),fill=(243,180,93),width=3)
-            d.line((0,t+5,s,t+5),fill=(100,66,36),width=3)
+        for t in range(10,s,72):
+            d.line((0,t,s,t),fill=(232,177,92),width=2)
+            d.line((0,t+4,s,t+4),fill=(121,80,46),width=2)
     def copper(d,s):
-        for t in range(0,s,28):d.line((t,0,t,s),fill=(153,103,63),width=2)
-    create('frame',(78,87,97),pattern=frame)
-    create('tank',(212,216,213),pattern=ceramic)
-    create('battery',(48,57,68),pattern=batteries)
+        for t in range(0,s,42):d.line((t,0,t,s),fill=(148,101,67),width=2)
+    create('frame',(82,91,100),pattern=frame)
+    create('tank',(216,220,217),pattern=ceramic)
+    create('battery',(47,58,70),pattern=batteries)
     create('bronze',(177,123,63),pattern=gold)
     create('copper',(162,106,71),pattern=copper)
-    # Branding is a real 2D asset on a mesh, not text assembled from external fonts
     im=Image.new('RGB',(1536,360),(28,41,53));d=ImageDraw.Draw(im)
     d.rounded_rectangle((8,8,1527,351),radius=22,outline=(225,170,82),width=10)
     d.rectangle((46,48,59,311),fill=(235,170,75))
@@ -304,6 +311,8 @@ def material_textures():
     f1=ImageFont.truetype(heavy,115);f2=ImageFont.truetype(reg,56)
     d.text((100,36),'RoosterWorks',font=f1,fill=(236,238,241))
     d.text((108,207),'KERBALISM ADDITIONS',font=f2,fill=(226,171,91))
+    # Counteract the in-game mirrored sampling seen in prior tests.
+    im=im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     im.save(MD/'branding.png',optimize=True);names.append('branding')
     return names
 
@@ -318,94 +327,96 @@ def build_part(p):
     poly=p['polygon'];rad=p['diameter']*.5*.94;h=p['height'];half=h/2
     circum=[(rad*math.cos(j*math.tau/poly),rad*math.sin(j*math.tau/poly)) for j in range(poly)]
     mats=[Mesh() for _ in range(6)]
-    # Heavy primary rails and clear, simplified cross-bracing.
     armor=Mesh()
-    thick=.085 if rad>.8 else .053
+    thick=.088 if rad>.8 else .058
+    rail_sides=14 if rad>.8 else 12
+    diag_sides=12 if rad>.8 else 10
     for k,(x,z) in enumerate(circum):
         nx,nz=circum[(k+1)%poly]
-        mats[0].merge(rod((x,-half,z),(x,half,z),thick,10))
+        mats[0].merge(rod((x,-half,z),(x,half,z),thick,rail_sides))
         for sy in (-half,half):
-            mats[0].merge(rod((x,sy,z),(nx,sy,nz),thick*.93,10))
-            mats[3].merge(solid_box((x,sy*.964,z),(.22,.14,.22) if rad>.8 else (.14,.09,.14)))
-        # One major diagonal brace per face instead of overlapping X braces.
+            mats[0].merge(rod((x,sy,z),(nx,sy,nz),thick*.96,rail_sides))
+            mats[3].merge(solid_box((x,sy*.964,z),(.18,.12,.18) if rad>.8 else (.12,.08,.12)))
         if k%2==0:
-            mats[0].merge(rod((x,-half*.78,z),(nx,half*.78,nz),thick*.52,9))
+            mats[0].merge(rod((x,-half*.80,z),(nx,half*.80,nz),thick*.48,diag_sides))
         else:
-            mats[0].merge(rod((x,half*.78,z),(nx,-half*.78,nz),thick*.52,9))
-        mats[0].merge(rod((x,0,z),(nx,0,nz),thick*.70,9))
-        # Panel-clad truss: continuous full-height armor from lower to upper frame.
-        # Three adjoining plates create manufacturing seams, without the old open belt.
-        panel_bottom=-half+.043
-        panel_top=half-.043
-        stops=[panel_bottom, -h/6, h/6, panel_top]
-        for q in range(3):
-            armor.merge(panel_between((x,z),(nx,nz),stops[q],stops[q+1],shade_offset=.975))
-    # Visible bronze collars and thicker end fittings.
+            mats[0].merge(rod((x,half*.80,z),(nx,-half*.80,nz),thick*.48,diag_sides))
+        mats[0].merge(rod((x,0,z),(nx,0,nz),thick*.68,diag_sides))
+        panel_bottom=-half+.040
+        panel_top=half-.040
+        armor.merge(panel_between((x,z),(nx,nz),panel_bottom,panel_top,shade_offset=.979))
     for y in (-half*.92,half*.92):
         for k,(x,z) in enumerate(circum):
             nx,nz=circum[(k+1)%poly]
-            mats[3].merge(rod((x*.95,y,z*.95),(nx*.95,y,nz*.95),.028 if rad>.8 else .018,8))
-    # Two distinct polyhedral solid end rings, inner frame support
+            mats[3].merge(rod((x*.95,y,z*.95),(nx*.95,y,nz*.95),.024 if rad>.8 else .017,10))
     for y0 in (-half+.065,half-.065):
         for k,(x,z) in enumerate(circum):
             nx,nz=circum[(k+1)%poly]
-            mats[0].merge(rod((x*.64,y0,z*.64),(nx*.64,y0,nz*.64),.033 if rad>.8 else .02,8))
-    # central service bus, visible between tanks
-    mats[0].merge(solid_box((0,0,0),(.23,h*.75,.23) if rad>.8 else (.13,h*.76,.13)))
-    # Tank bodies, fittings and copper feed pipes
+            mats[0].merge(rod((x*.64,y0,z*.64),(nx*.64,y0,nz*.64),.036 if rad>.8 else .024,10))
+    mats[0].merge(solid_box((0,0,0),(.20,h*.80,.20) if rad>.8 else (.12,h*.80,.12)))
+    # Monopropellant vessels: almost full height, thicker per request, with cleaner fittings.
     tank_positions=[]
-    if p['tanks']==4:tank_positions=[(.46*rad*math.cos(math.tau*j/4+.2),.46*rad*math.sin(math.tau*j/4+.2)) for j in range(4)]
-    elif p['tanks']==2:tank_positions=[(-rad*.30,0),(rad*.30,0)]
-    else:tank_positions=[(0,0)]
-    t_r=rad*(.18 if p['tanks']>=4 else .25 if p['tanks']==2 else .30)
-    for idx,(x,z) in enumerate(tank_positions):
-        ylo=-half+.15 if rad>.8 else -half+.095
-        yhi=half-.15 if rad>.8 else half-.095
-        mats[1].merge(closed_tank(x,z,ylo,yhi,t_r))
-        for yy in (ylo+.035,yhi-.035,(ylo+yhi)/2):
-            mats[3].merge(rod((x-t_r*1.08,yy,z),(x+t_r*1.08,yy,z),.018 if rad>.8 else .009,10))
-        mats[4].merge(rod((x,ylo,z),(0,-half+.070,0),.014 if rad>.8 else .009,8))
-        mats[4].merge(rod((x,yhi,z),(0,half-.070,0),.012 if rad>.8 else .008,8))
-        mats[3].merge(solid_box((x,ylo-.038,z),(.14,.062,.14) if rad>.8 else (.075,.04,.075)))
-        mats[3].merge(solid_box((x,yhi+.038,z),(.14,.062,.14) if rad>.8 else (.075,.04,.075)))
-    # Battery banks bolt flat to the inner octagonal/hexagonal wall faces.
-    # Local X is parallel to each flat face; local Z points along its face normal.
+    if p['tanks']==4:
+        tank_positions=[(.42*rad*math.cos(math.tau*j/4+.20),.42*rad*math.sin(math.tau*j/4+.20)) for j in range(4)]
+    elif p['tanks']==2:
+        tank_positions=[(-rad*.28,0),(rad*.28,0)]
+    else:
+        tank_positions=[(0,0)]
+    base_r=rad*(.18 if p['tanks']>=4 else .25 if p['tanks']==2 else .30)
+    t_r=base_r*1.5
+    max_r=(rad*math.cos(math.pi/poly)-0.09)
+    if p['tanks']>=4:
+        max_center=max(math.sqrt(x*x+z*z) for x,z in tank_positions)
+        t_r=min(t_r,max_r-max_center)
+    elif p['tanks']==2:
+        max_center=max(abs(x) for x,z in tank_positions)
+        t_r=min(t_r,max_r-max_center)
+    else:
+        t_r=min(t_r,max_r)
+    ylo=-half+.12 if rad>.8 else -half+.08
+    yhi=half-.12 if rad>.8 else half-.08
+    for x,z in tank_positions:
+        mats[1].merge(closed_tank(x,z,ylo,yhi,t_r,32 if rad>.8 else 28))
+        for yy in (ylo+.045,yhi-.045,(ylo+yhi)/2):
+            mats[3].merge(rod((x-t_r*1.02,yy,z),(x+t_r*1.02,yy,z),.015 if rad>.8 else .010,12))
+        mats[4].merge(rod((x,ylo,z),(0,-half+.070,0),.012 if rad>.8 else .008,10))
+        mats[4].merge(rod((x,yhi,z),(0,half-.070,0),.012 if rad>.8 else .008,10))
+        mats[3].merge(solid_box((x,ylo-.035,z),(.13,.055,.13) if rad>.8 else (.075,.038,.075)))
+        mats[3].merge(solid_box((x,yhi+.035,z),(.13,.055,.13) if rad>.8 else (.075,.038,.075)))
+    # Battery banks: continuous vertical wall modules mounted flush to polygon faces.
     face_apothem=rad*math.cos(math.pi/poly)
     face_width=2*rad*math.sin(math.pi/poly)
     n_battery=p['battery']
-    for j in range(n_battery):
-        face_id=(j*poly//n_battery) % poly
+    unique_faces=min(poly,n_battery)
+    face_ids=sorted({int(round(i*poly/unique_faces))%poly for i in range(unique_faces)})
+    if len(face_ids)<unique_faces:
+        face_ids=list(range(0,poly,max(1,poly//unique_faces)))[:unique_faces]
+    for face_id in face_ids:
         theta=(face_id+.5)*math.tau/poly
-        # Rotate the rectangular housing to be tangent to the girder's true polygon face.
         angle=math.pi/2-theta
-        inward=face_apothem-(.175 if rad>.8 else .107)
+        inward=face_apothem-(.11 if rad>.8 else .07)
         x,z=inward*math.cos(theta),inward*math.sin(theta)
-        # Octo XL has eight wall packs; smaller parts distribute packs across faces.
-        y=(((-1 if j%2 else 1)*min(h*.175,.62)) if n_battery>=4 else 0)
-        wid=face_width*.73
-        pack_h=min(h*.22,.72 if rad>.8 else .45)
-        thickness=.14 if rad>.8 else .085
-        mats[2].merge(solid_box((x,y,z),(wid,pack_h,thickness),angle=angle))
-        # Recessed face brackets at either side + visible vertical power conduit.
+        wid=face_width*.70
+        pack_h=h*.84 if rad>.8 else h*.82
+        thickness=.10 if rad>.8 else .062
+        mats[2].merge(solid_box((x,0,z),(wid,pack_h,thickness),angle=angle))
         tang=(math.sin(theta),-math.cos(theta))
         for side in (-1,1):
             offset=wid*.46*side
             px,pz=x+offset*tang[0],z+offset*tang[1]
-            mats[3].merge(rod((px,y-pack_h*.53,pz),(px,y+pack_h*.53,pz),.014 if rad>.8 else .008,7))
-        mats[4].merge(rod((x,y-pack_h*.55,z),(x,-half+.13,z),.012 if rad>.8 else .007,7))
-    # Brand plate on outer face. UV fix addresses mirrored/upside-down text in KSP.
+            mats[3].merge(rod((px,-pack_h*.50,pz),(px,pack_h*.50,pz),.011 if rad>.8 else .007,8))
+        mats[4].merge(rod((x,-pack_h*.52,z),(x,-half+.11,z),.010 if rad>.8 else .006,8))
+        mats[4].merge(rod((x,pack_h*.52,z),(x,half-.11,z),.010 if rad>.8 else .006,8))
     tagAngle=math.pi/poly
-    mats[5].merge(label_quad(tagAngle,rad*math.cos(math.pi/poly)*.995, min(h*.13, .28),width=rad*.80,height=min(h*.15,.27)))
+    mats[5].merge(label_quad(tagAngle,rad*math.cos(math.pi/poly)*.994, min(h*.13,.28),width=rad*.80,height=min(h*.15,.27)))
     w=Binary(MD/(p['id']+'.mu'));w.i(76543,5);w.string(p['id']);transform(w,'RoosterWorksGirder')
     for k,(name,mesh) in enumerate(zip(['Frame','MonopropellantVessels','BatteryPacks','BronzeClamps','FluidLines','RoosterWorksBrand'],mats)):
         assert mesh.tris, name
         child(w,name,mesh,k)
-    child(w,'ArmorPanels',armor,1)  # toggled by stock ModulePartVariants (visual only)
-    # Physical collision volumes around each fixed rail (no animation)
+    child(w,'ArmorPanels',armor,1)
     for k,(x,z) in enumerate(circum):
-        w.i(0);transform(w,f'RailCollider_{k:02}',pos=(x,0,z),collider=(.19 if rad>.8 else .12,h,.19 if rad>.8 else .12));w.i(1)
-    # Mid equipment collision, box inset to frame to avoid intersecting neighboring parts
-    w.i(0);transform(w,'EquipmentCollider',collider=(rad*.9,h*.68,rad*.9));w.i(1)
+        w.i(0);transform(w,f'RailCollider_{k:02}',pos=(x,0,z),collider=(.20 if rad>.8 else .13,h,.20 if rad>.8 else .13));w.i(1)
+    w.i(0);transform(w,'EquipmentCollider',collider=(rad*.92,h*.72,rad*.92));w.i(1)
     write_materials(w)
     w.close()
     return mats,armor

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0-alpha4
+- Increased monopropellant vessel diameter by roughly 1.5× and kept the vessels nearly full-height.
+- Reworked battery modules into full-height wall-mounted packs that follow the inner polygon faces.
+- Smoothed girder geometry, end fittings, and tank cylinder tessellation.
+- Simplified and softened texture patterns for frame, tank, and battery materials.
+- Expanded panel-clad armor to cover the full vertical span.
+- Added further RoosterWorks badge orientation fixes.
+- Retained both stack adapters and all existing capacities / part IDs.
+
 ## 0.3.0-alpha3 — Panel-clad truss and Hex adapter
 
 - Added **Hex → round 1.25 m** size1 stack adapter, compatible with the Hex girders.

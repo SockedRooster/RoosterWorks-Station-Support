@@ -14,7 +14,7 @@ reg='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';bold='/usr/share/fonts/tru
 font=ImageFont.truetype(bold,27);small=ImageFont.truetype(reg,20);sub=ImageFont.truetype(reg,16)
 d.rectangle((0,0,W,107),fill=(34,44,54))
 d.text((48,15),'ROOSTERWORKS  |  KERBALISM ADDITIONS',font=ImageFont.truetype(bold,37),fill=(239,239,237))
-d.text((48,68),'0.3.0 ALPHA3  •  PANEL-CLAD TRUSS  •  OCTO/HEX ADAPTERS',font=sub,fill=(215,167,90))
+d.text((48,68),'0.4.0 ALPHA4  •  SMOOTHED GIRDERS  •  FULL-HEIGHT INTERNALS',font=sub,fill=(215,167,90))
 cam=b.normalize((2.0,1.00,2.80));right=b.normalize(b.cross((0,1,0),cam));up=b.normalize(b.cross(cam,right));light=b.normalize((1.4,2.0,2.0))
 palette=[(122,139,151),(221,221,217),(67,84,105),(203,151,79),(162,116,73),(34,45,58),(214,218,216)]
 
@@ -71,6 +71,6 @@ d.text((left+28,761),'2 stack nodes • size1',font=sub,fill=(181,200,213))
 d.text((left+28,817),'Structural → Adapters',font=sub,fill=(181,200,213))
 d.text((left+28,923),'No resource storage',font=sub,fill=(181,200,213))
 d.text((left+28,1074),'Geometry preview only',font=sub,fill=(214,161,92))
-p=OUT/'RoosterWorks-Girders-v0.3.0-PanelClad-and-Adapters-Preview.png'
+p=OUT/'RoosterWorks-Girders-v0.4.0-Refined-Preview.png'
 out.save(p)
 print('CREATED',p)

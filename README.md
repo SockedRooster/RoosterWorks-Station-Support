@@ -1,10 +1,10 @@
 # RoosterWorks Kerbalism Additions
 
-**Version:** 0.3.0-alpha3 (experimental KSP1 prototype)  
+**Version:** 0.4.0-alpha4 (experimental KSP1 prototype)  
 **Author:** SockedRooster · **License:** MIT © 2026 SockedRooster  
 **Repository:** https://github.com/SockedRooster/RoosterWorks-Kerbalism-Additions
 
-![Engineering preview of all support girders and adapters](Media/RoosterWorks-Girders-v0.3.0-PanelClad-and-Adapters-Preview.png)
+![Engineering preview of all support girders and adapters](Media/RoosterWorks-Girders-v0.4.0-Refined-Preview.png)
 
 *The illustration above is generated from original model geometry, not an in-game screenshot.*
 
@@ -46,7 +46,7 @@ The adapters are fixed structural converters with **top and bottom stack nodes**
 
 1. Quit KSP and back up your saves.
 2. Delete any previous `GameData/RoosterWorksKerbalismAdditions` folder rather than merging test builds.
-3. Extract `RoosterWorks-Kerbalism-Additions-v0.3.0-alpha3.zip` into the **KSP installation root**.
+3. Extract `RoosterWorks-Kerbalism-Additions-v0.4.0-alpha4.zip` into the **KSP installation root**.
 4. Start KSP and find the parts under Structural.
 
 **Existing crafts:** The four girder IDs and original Octo adapter ID are unchanged from v0.2.0. New Hex adapter ID: `RW_Hex125_Adapter`.
@@ -62,7 +62,7 @@ Live persistence across background simulation, time warp, reloading, and vessel 
 - Confirm the six parts load and both adapters attach on both ends.
 - Verify Open Frame and Armored Panels render, change cleanly, and survive save/reload.
 - Check the RoosterWorks labels for upright, readable text; this version flips both texture axes to address previous mirrored labeling.
-- Inspect full-height internal tanks and flush-mounted batteries; verify no visible intersections.
+- Inspect thicker full-height internal tanks, full-height wall batteries, and smoothed end geometry; verify no visible intersections.
 - Check stack collision in a disposable sandbox save.
 - Confirm EC and MonoPropellant remain intact after craft loading, time warp, vessel switching, and Kerbalism background simulation.
 
