@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.4.0-alpha4
+## 0.5.0-alpha5
+- Increased structural tube smoothness so the truss rails read as solid round tubing rather than hollow channel.
+- Upgraded all generated textures to higher-resolution, smoother painted-steel / ceramic finishes.
+- Added green mini LED indicator details to the battery-bank texture.
+- Preserved the thicker full-height monopropellant vessels and full-height wall battery layout.
+- Retained both stack adapters and all existing capacities / part IDs.
+
+## 0.5.0-alpha5
 - Increased monopropellant vessel diameter by roughly 1.5× and kept the vessels nearly full-height.
 - Reworked battery modules into full-height wall-mounted packs that follow the inner polygon faces.
 - Smoothed girder geometry, end fittings, and tank cylinder tessellation.

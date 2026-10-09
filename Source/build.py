@@ -45,8 +45,8 @@ def solid_box(center,size,angle=0):
         m.tri(q[0],q[1],q[2]);m.tri(q[0],q[2],q[3])
     return m
 
-def rod(a,b,r=0.035,sides=9):
-    # low-poly sealed steel/bronze structural tubes; oriented between any 3D points
+def rod(a,b,r=0.035,sides=18):
+    # sealed smooth round structural tubing; oriented between any 3D points
     axis=normalize(sub(b,a));basis=normalize(cross(axis,(1,0,0) if abs(axis[0])<0.9 else (0,0,1)))
     other=normalize(cross(axis,basis));m=Mesh();rs=[]
     for pos,v in [(a,0),(b,1)]:
@@ -271,49 +271,70 @@ def child(w,name,mesh,mat=0,collider=None):
 def material_textures():
     rng=np.random.default_rng(2026)
     names=[]
-    def create(name,base,size=1024,pattern=None):
+    def blur(arr,steps=2):
+        for _ in range(steps):
+            arr=(arr+np.roll(arr,1,0)+np.roll(arr,-1,0)+np.roll(arr,1,1)+np.roll(arr,-1,1))/5.0
+        return arr
+    def create(name,base,size=1536,pattern=None):
+        yy,xx=np.mgrid[0:size,0:size]
+        n=blur(rng.normal(0,1.0,(size,size)),3)
+        sweep=np.sin(xx*0.010)*1.4 + np.cos(yy*0.012)*1.1 + np.sin((xx+yy)*0.004)*1.2
         a=np.zeros((size,size,3),dtype=np.float64)
-        n=rng.normal(0,2.0,(size,size))
-        soft=np.sin(np.arange(size)[:,None]*.055)*1.2 + np.cos(np.arange(size)[None,:]*.047)*0.9
-        for i,v in enumerate(base):a[:,:,i]=v+n+soft
-        im=Image.fromarray(np.uint8(np.clip(a,0,255)),'RGB');d=ImageDraw.Draw(im)
-        if pattern:pattern(d,size)
-        im.save(MD/(name+'.png'),optimize=True);names.append(name)
+        for i,v in enumerate(base): a[:,:,i]=v + n*2.8 + sweep
+        a=np.clip(a,0,255).astype(np.uint8)
+        im=Image.fromarray(a,'RGB'); d=ImageDraw.Draw(im)
+        if pattern: pattern(d,size)
+        im.save(MD/(name+'.png'),optimize=True)
+        names.append(name)
     def frame(d,s):
-        for t in range(0,s,96):d.line([(0,t),(s,t)],fill=(92,103,113),width=2)
-        for t in range(48,s,96):d.line([(0,t),(s,t)],fill=(72,84,94),width=1)
-        for t in range(34,s,160):d.line([(t,0),(t,s)],fill=(52,61,70),width=2)
+        # cleaner painted steel with very subtle seams, no U-channel illusion
+        for t in range(0,s,220):
+            d.line([(0,t),(s,t)],fill=(88,98,108),width=2)
+        for t in range(80,s,220):
+            d.line([(0,t),(s,t)],fill=(107,116,124),width=1)
+        for t in range(0,s,340):
+            d.line([(t,0),(t,s)],fill=(70,80,88),width=1)
     def ceramic(d,s):
-        for t in range(0,s,136):d.line([(0,t),(s,t)],fill=(172,180,184),width=2)
-        for t in range(68,s,136):d.line([(0,t),(s,t)],fill=(236,236,230),width=1)
+        for t in range(0,s,184):
+            d.line([(0,t),(s,t)],fill=(196,199,198),width=2)
+        for t in range(92,s,184):
+            d.line([(0,t),(s,t)],fill=(233,234,230),width=1)
+        for t in range(50,s,368):
+            d.line([(t,0),(t,s)],fill=(212,214,212),width=1)
     def batteries(d,s):
-        for x in range(18,s,132):
-            for y in range(18,s,132):
-                d.rounded_rectangle((x,y,x+96,y+96),radius=8,fill=(43,54,66),outline=(102,116,128),width=2)
-                for a in range(16,86,18):d.line((x+12,y+a,x+84,y+a),fill=(79,96,113),width=2)
-                d.ellipse((x+76,y+76,x+84,y+84),fill=(76,194,203))
+        # dark power-cell banks with bright green mini LED indicators
+        cell=128
+        for x in range(16,s,cell):
+            for y in range(16,s,cell):
+                d.rounded_rectangle((x,y,x+94,y+94),radius=8,fill=(44,56,70),outline=(101,114,126),width=2)
+                for a in range(16,82,16):
+                    d.line((x+14,y+a,x+80,y+a),fill=(76,92,108),width=2)
+                # mini LEDs
+                for lx,ly in [(x+78,y+18),(x+78,y+34),(x+78,y+50),(x+78,y+66)]:
+                    d.ellipse((lx,ly,lx+6,ly+6),fill=(72,255,122),outline=(170,255,190))
+                    d.ellipse((lx-2,ly-2,lx+8,ly+8),outline=(38,112,62))
     def gold(d,s):
-        for t in range(10,s,72):
-            d.line((0,t,s,t),fill=(232,177,92),width=2)
-            d.line((0,t+4,s,t+4),fill=(121,80,46),width=2)
+        for t in range(18,s,92):
+            d.line((0,t,s,t),fill=(222,168,88),width=2)
+            d.line((0,t+4,s,t+4),fill=(117,77,45),width=2)
     def copper(d,s):
-        for t in range(0,s,42):d.line((t,0,t,s),fill=(148,101,67),width=2)
-    create('frame',(82,91,100),pattern=frame)
-    create('tank',(216,220,217),pattern=ceramic)
+        for t in range(0,s,56): d.line((t,0,t,s),fill=(145,98,64),width=2)
+    create('frame',(88,96,104),pattern=frame)
+    create('tank',(220,222,219),pattern=ceramic)
     create('battery',(47,58,70),pattern=batteries)
     create('bronze',(177,123,63),pattern=gold)
     create('copper',(162,106,71),pattern=copper)
-    im=Image.new('RGB',(1536,360),(28,41,53));d=ImageDraw.Draw(im)
+    im=Image.new('RGB',(1536,360),(28,41,53)); d=ImageDraw.Draw(im)
     d.rounded_rectangle((8,8,1527,351),radius=22,outline=(225,170,82),width=10)
     d.rectangle((46,48,59,311),fill=(235,170,75))
     heavy='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
     reg='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
-    f1=ImageFont.truetype(heavy,115);f2=ImageFont.truetype(reg,56)
+    f1=ImageFont.truetype(heavy,115); f2=ImageFont.truetype(reg,56)
     d.text((100,36),'RoosterWorks',font=f1,fill=(236,238,241))
     d.text((108,207),'KERBALISM ADDITIONS',font=f2,fill=(226,171,91))
-    # Counteract the in-game mirrored sampling seen in prior tests.
+    # Keep mirrored export because in-game badge sampling has been reversed.
     im=im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-    im.save(MD/'branding.png',optimize=True);names.append('branding')
+    im.save(MD/'branding.png',optimize=True); names.append('branding')
     return names
 
 PARTS=[
@@ -383,7 +404,7 @@ def build_part(p):
         mats[4].merge(rod((x,yhi,z),(0,half-.070,0),.012 if rad>.8 else .008,10))
         mats[3].merge(solid_box((x,ylo-.035,z),(.13,.055,.13) if rad>.8 else (.075,.038,.075)))
         mats[3].merge(solid_box((x,yhi+.035,z),(.13,.055,.13) if rad>.8 else (.075,.038,.075)))
-    # Battery banks: continuous vertical wall modules mounted flush to polygon faces.
+    # Battery banks: continuous vertical wall modules mounted flush to polygon faces, with mini LED indicators in the texture.
     face_apothem=rad*math.cos(math.pi/poly)
     face_width=2*rad*math.sin(math.pi/poly)
     n_battery=p['battery']
