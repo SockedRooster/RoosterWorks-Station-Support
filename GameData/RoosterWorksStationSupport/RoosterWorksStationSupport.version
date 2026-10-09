@@ -1,0 +1,15 @@
+{
+  "NAME": "RoosterWorks Station Support",
+  "URL": "https://github.com/SockedRooster/RoosterWorks-Station-Support/releases",
+  "VERSION": {
+    "MAJOR": 0,
+    "MINOR": 8,
+    "PATCH": 4,
+    "BUILD": 0
+  },
+  "KSP_VERSION": {
+    "MAJOR": 1,
+    "MINOR": 12,
+    "PATCH": 5
+  }
+}
