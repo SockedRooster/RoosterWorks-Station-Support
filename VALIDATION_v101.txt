@@ -1,8 +1,0 @@
-PASS RW_OctoSupport_XL: 8 radial colliders, unchanged visible geometry prefix, config
-PASS RW_OctoSupport_Medium: 8 radial colliders, unchanged visible geometry prefix, config
-PASS RW_HexSupport_Long: 6 radial colliders, unchanged visible geometry prefix, config
-PASS RW_HexSupport_Medium: 6 radial colliders, unchanged visible geometry prefix, config
-PASS RW_Octo25_Adapter: 8 radial colliders, unchanged visible geometry prefix, config
-PASS RW_Hex125_Adapter: 6 radial colliders, unchanged visible geometry prefix, config
-PASS v1.0.1 version, stable part IDs, source metadata, unchanged textures
-NOTE: Invisible collider raycasts and live variant mass behavior require KSP VAB/flight testing.
