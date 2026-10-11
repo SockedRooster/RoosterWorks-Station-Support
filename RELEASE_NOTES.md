@@ -1,4 +1,4 @@
-# RoosterWorks Station Support v1.0.1 — TEST BUILD
+# RoosterWorks Station Support v1.0.1
 
 **Not yet the public GitHub/CKAN release.** Please validate behavior in KSP 1.12.5 first.
 
