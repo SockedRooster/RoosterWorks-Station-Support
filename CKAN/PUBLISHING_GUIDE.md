@@ -3,28 +3,24 @@
 **Mod:** RoosterWorks Station Support  
 **Author:** SockedRooster  
 **CKAN identifier:** `RoosterWorksStationSupport`  
-**KSP compatibility declared:** 1.12.5  
+**Declared KSP compatibility:** 1.12.5  
 **License:** MIT
 
-## Current submission
+## CKAN registration
 
-The initial CKAN indexing request is [KSP-CKAN/NetKAN #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672). **Do not create another request for v1.0.1.** Instead, add a comment with the updated release URL after publishing.
+The existing indexing request is [KSP-CKAN/NetKAN #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672). Do **not** open a duplicate for a maintenance release. When the new release is available, add its URL to the existing discussion.
 
-The metadata source remains `CKAN/RoosterWorksStationSupport.netkan`. It selects GitHub release assets named `RoosterWorks-Station-Support-vX.Y.Z.zip` and installs **only** the `RoosterWorksStationSupport` folder into `GameData`. No additional plugin dependencies are required.
+`RoosterWorksStationSupport.netkan` targets the versioned GitHub release ZIP, installs only `RoosterWorksStationSupport` into `GameData`, and needs no additional plugin dependencies. It normalizes tags using either uppercase `V` or lowercase `v`.
 
-## Publish v1.0.1
+## v1.0.1 release
 
-1. Ensure `main` contains the approved v1.0.1 GameData assets and up-to-date `README.md`, `CHANGELOG.md`, and `RELEASE_NOTES.md`.
-2. **Fix the stale `v1.0.1` Git tag:** the tag left behind when the earlier release was removed pointed at the original v1.0.0 commit. Delete **only** the incorrect lowercase `v1.0.1` tag, then recreate `v1.0.1` at the final v1.0.1 commit on `main`. Leave the original `V1.0.0` tag and release unchanged.
-3. Create the new [GitHub release](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases/new) using the corrected `v1.0.1` tag. Title: **RoosterWorks Station Support v1.0.1**.
-4. Attach **`RoosterWorks-Station-Support-v1.0.1.zip`**, containing only the installable `GameData/RoosterWorksStationSupport/` tree. This is the player package; do not use the developer source ZIP as the CKAN target.
-5. Use `RELEASE_NOTES.md` for the release description. Publish as the latest stable release.
-6. Verify the uploaded ZIP opens with a `GameData/` directory and contains the six `.mu` models, six `.cfg` files and `RoosterWorksStationSupport.version`.
-7. Comment on [NetKAN request #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672) with the v1.0.1 release link: `https://github.com/SockedRooster/RoosterWorks-Station-Support/releases/tag/v1.0.1`.
+1. Verify `main` contains the reviewed v1.0.1 gameplay assets, `RoosterWorksStationSupport.version` with PATCH=1, the SHA-256 manifest, and current README/changelog/release notes.
+2. Check that `v1.0.1` does **not** point to an older commit; if absent, create it at the final v1.0.1 release commit. Preserve the existing `V1.0.0` release.
+3. Run `python Source/verify_v101.py` and `sha256sum -c CHECKSUMS-SHA256.txt` to validate assets before packaging. If a local v1.0.0 ZIP is available, supply `--baseline-zip` for stronger binary regression checks.
+4. Publish a GitHub release tagged **`v1.0.1`**, titled **RoosterWorks Station Support v1.0.1**, attaching **`RoosterWorks-Station-Support-v1.0.1.zip`**. The archive must contain `GameData/RoosterWorksStationSupport/` with six model files, six part configs, eight textures and the version JSON. A root README and LICENSE are fine.
+5. Paste the committed `RELEASE_NOTES.md` as the release description and mark it as the latest stable release. Never offer the auto-generated GitHub source ZIP as the installer.
+6. Comment on [NetKAN #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672) with the [v1.0.1 release link](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases/tag/v1.0.1) after publishing.
 
-## Notes
+The GitHub Actions workflow `.github/workflows/publish-v1.0.1.yml` is a one-time release helper that verifies checksums, packages the exact GameData files and creates the tag/release if GitHub Actions and write access permit it. Publication must still be confirmed on GitHub; a workflow file in the repository is not itself a published release.
 
-- The existing `.netkan` handles both the old uppercase `V1.0.0` tag and lowercase `v1.0.1` via its version-normalization rule. No metadata change is required for this maintenance release.
-- CKAN inclusion is subject to the maintainers' review; a submitted issue is not an approval.
-- Keep documentation and developer source in the GitHub repository or an optional separate source archive, not at the top level of the player's install ZIP.
-- This guide covers release packaging; it does not change part assets, capacity, models, attachment behavior or mass settings.
+CKAN indexing is subject to review by CKAN maintainers. This release process does not modify gameplay assets.

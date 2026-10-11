@@ -26,9 +26,11 @@ Stock KSP MonoPropellant mass is 0.004 t per unit. Masses above are **dry** mass
 
 ## Installation and updating
 
+**Release download:** [RoosterWorks Station Support releases](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases). The v1.0.1 source and assets are on `main`; use the matching **v1.0.1 release asset** when it appears on the Releases page.
+
 1. Close KSP and back up saves/craft files.
 2. Remove the older `GameData/RoosterWorksStationSupport` folder to prevent mixed-version files. If an earlier prototype `GameData/RoosterWorksKerbalismAdditions` still exists, remove it to avoid duplicate part IDs.
-3. Extract **`RoosterWorks-Station-Support-v1.0.1.zip`** into the **KSP installation root**; it creates `GameData/RoosterWorksStationSupport/`.
+3. From [GitHub Releases](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases), download the **`RoosterWorks-Station-Support-v1.0.1.zip`** asset once published. Extract it into the **KSP installation root** (the folder containing `GameData`); it creates `GameData/RoosterWorksStationSupport/`. Do **not** use GitHub's automatic source-code ZIP as the player installer.
 4. In the VAB, look for the six parts under **Structural**. Existing attachment nodes and part names are preserved.
 
 ## Notes and limitations
@@ -44,4 +46,4 @@ The author confirmed that the v1.0.1 gameplay tests passed, including the varian
 
 ## License and source
 
-MIT. Original RoosterWorks assets; no Near Future Construction files are distributed. Blender sources and model conversion scripts are provided separately in the GitHub source archive.
+MIT. Original RoosterWorks assets; no Near Future Construction files are distributed. Blender source projects, approved intermediate FBXs, model conversion scripts and v1.0.1 checks are in [`Source/`](Source/README.md). The game installer should contain `GameData/RoosterWorksStationSupport` and may include README and LICENSE, but no build tools. The [`CHECKSUMS-SHA256.txt`](CHECKSUMS-SHA256.txt) file records the v1.0.1 GameData asset hashes.

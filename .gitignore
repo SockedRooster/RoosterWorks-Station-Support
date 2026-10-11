@@ -1,0 +1,20 @@
+# Temporary archives, preview outputs, Python caches and editor files
+/dist/
+/build/
+/__pycache__/
+**/__pycache__/
+*.py[cod]
+*.zip
+*.log
+*.blend1
+*.blend2
+.DS_Store
+Thumbs.db
+.vscode/
+.vs/
+.pytest_cache/
+.venv/
+venv/
+
+# Native game assets (.mu, PNGs, .cfg, .version), FBX source exports, and
+# Blender .blend source projects are intentionally version-controlled.

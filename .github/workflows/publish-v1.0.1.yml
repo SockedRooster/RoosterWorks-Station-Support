@@ -1,0 +1,73 @@
+name: Publish Station Support v1.0.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-v1.0.1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-v101:
+    if: github.repository == 'SockedRooster/RoosterWorks-Station-Support'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@v4
+
+      - name: Validate game files
+        run: |
+          python Source/verify_release.py
+          python Source/verify_v101.py
+          sha256sum -c CHECKSUMS-SHA256.txt
+
+      - name: Package player-only release
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          import json
+          root = Path('GameData/RoosterWorksStationSupport')
+          assert root.is_dir()
+          models = sorted((root / 'Models').glob('*.mu'))
+          textures = sorted((root / 'Models').glob('*.png'))
+          parts = sorted((root / 'Parts').glob('*.cfg'))
+          assert (len(models), len(textures), len(parts)) == (6, 8, 6)
+          version = json.loads((root / 'RoosterWorksStationSupport.version').read_text())
+          assert version['VERSION'] == {'MAJOR': 1, 'MINOR': 0, 'PATCH': 1, 'BUILD': 0}
+          output = Path('RoosterWorks-Station-Support-v1.0.1.zip')
+          content = sorted(path for path in root.rglob('*') if path.is_file())
+          assert len(content) == 21, len(content)
+          with ZipFile(output, 'w', ZIP_DEFLATED, compresslevel=9) as archive:
+              for path in content:
+                  archive.write(path, path.as_posix())
+              archive.write('README.md')
+              archive.write('LICENSE')
+          with ZipFile(output) as archive:
+              assert archive.testzip() is None
+              names = archive.namelist()
+              assert len(names) == 23
+              assert all(
+                  name.startswith('GameData/RoosterWorksStationSupport/')
+                  or name in {'README.md', 'LICENSE'}
+                  for name in names
+              )
+          print(f'Validated {output} ({output.stat().st_size} bytes); {len(content)} GameData files')
+          PY
+
+      - name: Publish tag and GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.0.1 >/dev/null 2>&1; then
+            echo "v1.0.1 release already exists; refusing to overwrite it."
+            exit 1
+          fi
+          gh release create v1.0.1 RoosterWorks-Station-Support-v1.0.1.zip \
+            --target "${GITHUB_SHA}" \
+            --title "RoosterWorks Station Support v1.0.1" \
+            --notes-file RELEASE_NOTES.md \
+            --latest

@@ -8,7 +8,7 @@ This maintenance release improves the placement of radially attached parts and g
 
 - **Armored girder dry mass +25%**: Octo XL 3.20 → 4.00 t; Octo Medium 1.85 → 2.3125 t; Hex Long 0.76 → 0.95 t; Hex Medium 0.42 → 0.525 t. Open Frame mass and all resources are unchanged.
 - **Better radial attachment on all six parts**: added radial attachment nodes and outer-face invisible colliders to improve attachment positioning for solar panels, RCS blocks, lights and other equipment.
-- Preserved existing stack nodes, part IDs, dimensions, models, textures, costs, EC and MonoPropellant capacities.
+- Preserved existing stack nodes, part IDs, dimensions, **visible meshes**, textures, costs, EC and MonoPropellant capacities. Native model files were updated only to add the invisible radial colliders.
 
 **Compatibility:** KSP 1.12.5 · **License:** MIT · **Author:** SockedRooster · No plugin dependencies.
 
