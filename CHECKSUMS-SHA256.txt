@@ -1,4 +1,4 @@
-# GameData file checksums (SHA256) for RoosterWorks Station Support v1.0.1 TEST
+# GameData SHA256 — RoosterWorks Station Support v1.0.1
 9a118a0b6b5662391a6b75059dc33e648c6fdc728a7b91955c46ab504041950f  GameData/RoosterWorksStationSupport/Models/RW_Hex125_Adapter.mu
 b978f70f7939fda9c6f3c4bc81d1f0e345a2716cc6c3556c085dc8966dc2bfc4  GameData/RoosterWorksStationSupport/Models/RW_HexSupport_Long.mu
 17954c217fcc1fbff9b701d1d0f39390fe7a346e76b85a6ef388e0aa2a0c44ee  GameData/RoosterWorksStationSupport/Models/RW_HexSupport_Medium.mu
