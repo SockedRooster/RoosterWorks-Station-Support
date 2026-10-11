@@ -4,7 +4,7 @@
 Converts supplied APPROVED Blender FBX mesh/UV geometry to native KSP v5 .mu,
 keeping optional armor and corrected 3D nameplates. This is an experimental test tool;
 Blender's procedural materials cannot be transferred automatically to KSP.
-Version 0.8.4 preserves those fixes and flips Octo XL battery modules outward;
+Version 1.0.1 preserves those fixes, adds exterior radial collider faces, and flips Octo XL battery modules outward;
 both Octo badges move 17 mm farther from the truss center.
 Requires numpy, scipy, pillow (only for regenerating placeholder textures).
 """
@@ -55,14 +55,14 @@ class W:
   self.b(n);self.fh.write(b)
  def xyz(self,xyz):self.f(*xyz)
 
-def node_start(w,name,pos=(0,0,0),collider=None):
- w.string(name);w.xyz(pos);w.f(0,0,0,1);w.xyz((1,1,1))
+def node_start(w,name,pos=(0,0,0),collider=None,rotation=(0,0,0,1)):
+ w.string(name);w.xyz(pos);w.f(*rotation);w.xyz((1,1,1))
  w.i(24);w.string('Untagged');w.i(0)
  if collider:
   w.i(28);w.b(0);w.xyz(collider);w.xyz((0,0,0))
 
-def child_start(w,name,pos=(0,0,0),collider=None):
- w.i(0);node_start(w,name,pos,collider)
+def child_start(w,name,pos=(0,0,0),collider=None,rotation=(0,0,0,1)):
+ w.i(0);node_start(w,name,pos,collider,rotation)
 def child_end(w):w.i(1)
 
 class Mesh:
@@ -345,8 +345,15 @@ def main(fbx, part_id, destination=None):
    for partno,mesh in enumerate(meshes):
     if mesh.tris:mesh_node(w,mesh,f'Armor_{m}_{partno:02}',mats[m])
   child_end(w)
- # Simplified fixed collision. No moving or animated bodies.
+ # Simplified fixed collision. Keep baseline internal rail/equipment colliders,
+ # plus a shallow exterior perimeter of planar box colliders for raycasting
+ # radial attachments. Otherwise, clicking through the open frame can hit an
+ # internal tank/equipment collider and snap children near the girder center.
+ # Face center angles match the Blender polygon sides (vertex 0 is at +X).
+ # These invisible surfaces also exist with Open Frame selected; KSP's stock
+ # ModulePartVariants currently toggles the panels' VISUAL meshes only.
  radius=diameter*.47
+ face_radius=radius*math.cos(math.pi/n_sides)
  if 'Adapter' not in part_id:
   for i in range(n_sides):
    t=math.tau*i/n_sides
@@ -354,8 +361,29 @@ def main(fbx, part_id, destination=None):
    child_start(w,f'RailCollider_{i:02}',pos=(radius*math.cos(t),0,radius*math.sin(t)),collider=(d,max(.10,height-.15),d));child_end(w)
   d=diameter*.42
   child_start(w,'EquipmentCollider',collider=(d,height*.72,d));child_end(w)
+  face_height=height-.16
+  face_width=2*radius*math.sin(math.pi/n_sides)-(.04 if diameter>2 else .023)
+  # Armored panel's outer face sits near face_radius-.004 metres.
+  collision_radius=face_radius-.026
+  thickness=.045
  else:
   child_start(w,'AdapterCollider',collider=(diameter*.73,height*.72,diameter*.73));child_end(w)
+  # Adapter cross-section blends from polygon to circle along its height.
+  face_radius=(face_radius+diameter*.5)*.5
+  face_height=height*.72
+  face_width=2*radius*math.sin(math.pi/n_sides)-(.05 if diameter>2 else .03)
+  collision_radius=face_radius-.021
+  thickness=.044
+ for i in range(n_sides):
+  theta=(i+.5)*math.tau/n_sides
+  # A box is local-X tangential, local-Z radially outward. Unity quaternion
+  # rotates local +Z onto (cos(theta),0,sin(theta)).
+  phi=math.pi/2-theta
+  quaternion=(0,math.sin(phi*.5),0,math.cos(phi*.5))
+  child_start(w,f'RadialFaceCollider_{i:02}',
+              pos=(collision_radius*math.cos(theta),0,collision_radius*math.sin(theta)),
+              collider=(face_width,face_height,thickness),rotation=quaternion)
+  child_end(w)
  w.i(10,len(MATKEYS))
  for i,m in enumerate(MATKEYS):
   w.string('RW_'+m);w.string('KSP/Diffuse');w.i(2)

@@ -1,68 +1,50 @@
 # RoosterWorks Station Support
 
-**Version:** v1.0.0  
-**Author:** SockedRooster  
-**License:** MIT  
-**KSP:** Kerbal Space Program 1 (built for 1.12.5)  
-**Repository:** https://github.com/SockedRooster/RoosterWorks-Station-Support
+**v1.0.1 VAB / flight test build** · **Author:** SockedRooster · **License:** MIT · **KSP:** 1.12.5
 
-Original station construction components for KSP 1: four rigid structural girders with integrated ElectricCharge and MonoPropellant, plus two octagonal/hexagonal stack adapters. The parts are designed for use with **Kerbalism**, but require **no Kerbalism plugin or other mod** to load.
+Original modular station-support components: four structural girders with persistent ElectricCharge and MonoPropellant resource definitions, and two 2.5m/1.25m adapters. No required plugin. Designed for use with Kerbalism, but not dependent on it.
 
-## Features
+## v1.0.1 update: armoring and radial attachment
 
-- Original RoosterWorks Blender-modeled frames, monopropellant vessels, internal batteries, structural joints and readable identification badges.
-- **Open Frame** or **Armored Panels** selectable on all four girders using KSP's native part-variant system. The selection does not change part mass, resources or physics colliders.
-- Permanent **ElectricCharge and MonoPropellant RESOURCE** definitions, avoiding reliance on runtime resource switching.
-- Two rigid adapters for standard **2.5 m** and **1.25 m** stack parts; no fuel storage in adapters.
-- Stock **Structural** VAB category and career technology unlocks; optional VAB Organizer grouping under **Trusses** and **Adapters**.
-- No Near Future Construction model, texture or artwork is redistributed.
+- **Armored Panels now add 25% of the part's Open Frame dry mass** through KSP's built-in `ModulePartVariants` `mass` offset. Open Frame remains the default and original mass. EC and MonoPropellant amounts are unchanged.
+- Every girder and adapter now has a **radial `node_attach`** and allows itself to attach radially to another part (`attachRules = 1,1,1,1,0`). Top/bottom stack attachment is unchanged.
+- All six model files have extra, shallow, **invisible perimeter colliders** to catch editor surface clicks before they hit the interior service equipment. These are aligned to the octagonal/hexagonal outer faces; the original rail/equipment colliders are retained.
+- All approved visible models, texture files, nameplates, tanks and resource capacities remain unchanged.
 
-## Parts
+**Collision trade-off:** Those perimeter colliders are present **even in Open Frame mode**. That improves surface placement but means the visibly open truss faces behave as thin collision walls. The stock armor selector does not currently toggle colliders. This build needs a VAB/flight collision test before publishing.
 
-| Part | Approximate envelope | Internal layout | ElectricCharge | MonoPropellant | Career node |
-| --- | --- | --- | ---: | ---: | --- |
-| Octo XL Girder | 2.5 m × 4.75 m | 4 vessels | 9,000 | 1,500 | Specialized Construction |
-| Octo Medium Girder | 2.5 m × 2.65 m | 3 vessels | 4,500 | 750 | Specialized Construction |
-| Hex Long Girder | 1.25 m × 3.15 m | 4 vessels | 1,200 | 200 | Advanced Construction |
-| Hex Medium Girder | 1.25 m × 1.75 m | 1 vessel | 600 | 100 | Advanced Construction |
-| Octo → 2.5 m Adapter | 2.5 m interface | Stack adapter | — | — | Specialized Construction |
-| Hex → 1.25 m Adapter | 1.25 m interface | Stack adapter | — | — | Advanced Construction |
+## Parts and balance
 
-## Installation (manual)
+| Part | Diameter × height | EC | MonoPropellant | Open dry mass | Armored dry mass | Armor addition |
+|---|---|---:|---:|---:|---:|---:|
+| Octo XL | 2.5 × 4.75 m | 9,000 | 1,500 | 3.200 t | 4.000 t | +0.800 t |
+| Octo Medium | 2.5 × 2.65 m | 4,500 | 750 | 1.850 t | 2.3125 t | +0.4625 t |
+| Hex Long | 1.25 × 3.15 m | 1,200 | 200 | 0.760 t | 0.950 t | +0.190 t |
+| Hex Medium | 1.25 × 1.75 m | 600 | 100 | 0.420 t | 0.525 t | +0.105 t |
+| Octo → 2.5m Adapter | 2.5 × 0.74 m | — | — | 0.280 t | — | — |
+| Hex → 1.25m Adapter | 1.25 × 0.56 m | — | — | 0.140 t | — | — |
 
-1. Quit KSP. Back up your save and any crafts using previous test versions.
-2. Delete the old `GameData/RoosterWorksStationSupport` folder before installing. **Do not merge** test and release files.
-3. If the older prototype `GameData/RoosterWorksKerbalismAdditions` is still installed, remove it to prevent duplicate part IDs.
-4. Extract **`RoosterWorks-Station-Support-v1.0.0.zip`** into the KSP installation **root**. The final part folder must be `Kerbal Space Program/GameData/RoosterWorksStationSupport/`.
-5. Launch KSP and locate the six parts under **Structural**. If VAB Organizer is installed, they should appear under its Trusses and Adapters subcategories.
+Armor's additional mass is *dry*, so the total launched mass still includes 0.004 t per MonoPropellant unit. EC is treated as massless in stock KSP.
 
-Do not place a second `GameData` folder inside your existing `GameData` directory.
+## Installation
 
-## Operation
+1. Exit KSP, back up the save and any craft files, and **remove** the existing `GameData/RoosterWorksStationSupport` folder.
+2. Extract `RoosterWorks-Station-Support-v1.0.1-TEST.zip` into the **KSP installation root**, so the folder is `GameData/RoosterWorksStationSupport`.
+3. If the old `GameData/RoosterWorksKerbalismAdditions` prototype exists, remove it to prevent duplicate part IDs.
+4. In the VAB find the six parts under **Structural**. Test both **Open Frame** and **Armored Panels** before loading an important craft.
 
-- Select **Open Frame** or **Armored Panels** in the VAB using the part's variant selector. Adapters do not offer this selector.
-- Girders store their EC and MonoPropellant directly on the part, and are not generators or fuel producers.
-- Parts have top and bottom stack nodes; all four girders are fixed **Support-only** configurations.
+If using the **hotfix-only** ZIP, keep your working v1.0.0 installation and overwrite its four/six config files, all six model files and version file with those from the hotfix. The hotfix is not standalone and does **not** include textures. A full replacement is recommended.
 
-## Known limitations and release validation
+## Testing and notes
 
-- The complete six-part set has been visually approved in the VAB by its creator; **full flight testing, save/reload, adapter physics and Kerbalism background resource persistence are not comprehensively verified**. Perform these checks before relying on the pack in a valuable save.
-- The included KSP/Diffuse color textures are simplified placeholders; Blender PBR surface detail has not been baked into game textures.
-- The green battery LED details are **static**, not actually blinking in KSP.
-- These high-detail models are not optimized for very large craft with numerous repeated parts.
-- The armored plating is a visual variant; physical collision uses the same simplified rigid collider approximation in both modes.
+See `TEST_CHECKLIST.md`. Verify the VAB part mass changes when armor is selected, side-mounted items snap near the outer face rather than at the center, radial attachment of these parts is sensible, and existing craft remain attached after save/reload and flight. The visible meshes and textures were regression checked against v1.0.0; **this is not a substitute for actual KSP runtime validation**.
 
-See `TEST_CHECKLIST.md` for focused verification steps and `CHANGELOG.md` for the release history.
+Known limitations: static green LED details (not flashing), placeholder KSP/Diffuse colors, high triangle counts on large stations, Kerbalism timewarp persistence not systematically verified. The new perimeter colliders make open trusses physically closed across their side faces.
 
-## Compatibility and dependencies
+## Source, compatibility and CKAN
 
-- Designed for KSP **1.12.5**.
-- No required external plugin or ModuleManager patch.
-- Kerbalism and VAB Organizer are **optional**, not hard dependencies. Kerbalism-specific persistence still requires live testing in your installation.
-- Existing six part identifiers are retained from the v0.8.x prototypes for craft compatibility. Back up saves before upgrading.
+The editable Blender assets and FBXs are in `Source/`; native `.mu` files are regenerated with `Source/Conversion/convert_all.py` and require Python, NumPy, SciPy and Pillow. Run `python Source/verify_v101.py` to check the source package against the preserved v1.0.0 baseline (baseline ZIP needs to be available).
 
-## Source / licensing
+The v1.0.0 release is already public and CKAN request [#11672](https://github.com/KSP-CKAN/NetKAN/issues/11672) is open. **v1.0.1 is a test candidate, not a published GitHub release or an indexed CKAN update.** Do not replace the public release until runtime tests pass.
 
-The models, scripts, textures, configs and documentation are released under the **MIT** license in `LICENSE`. The `Source/` directory contains editable Blender and FBX inputs plus the custom conversion utilities. No assets from Near Future Construction are bundled. Attribution: **SockedRooster / RoosterWorks**.
-
-Report bugs or feature requests through the [GitHub Issues](https://github.com/SockedRooster/RoosterWorks-Station-Support/issues) page.
+Original artwork. No Near Future Construction assets redistributed. MIT License, SockedRooster. [Repository](https://github.com/SockedRooster/RoosterWorks-Station-Support).
