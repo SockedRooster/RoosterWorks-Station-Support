@@ -1,6 +1,6 @@
 # RoosterWorks Station Support
 
-**v1.0.1 VAB / flight test build** · **Author:** SockedRooster · **License:** MIT · **KSP:** 1.12.5
+**v1.0.1** · **Author:** SockedRooster · **License:** MIT · **KSP:** 1.12.5
 
 Original modular station-support components: four structural girders with persistent ElectricCharge and MonoPropellant resource definitions, and two 2.5m/1.25m adapters. No required plugin. Designed for use with Kerbalism, but not dependent on it.
 
