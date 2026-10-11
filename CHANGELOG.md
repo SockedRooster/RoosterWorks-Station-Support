@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.1 — Armor Mass & Radial Attachment Test (2026-10-09)
+## v1.0.1 — Armor Mass & Radial Attachment (2026-10-09)
 
 - Four girders: Armored Panels now add **25% of the original dry mass** with stock `ModulePartVariants`: +0.800, +0.4625, +0.190, +0.105 tonnes respectively. Open Frame mass and EC/MonoPropellant capacities are unchanged.
 - All six parts: added `node_attach` located on an outer polygon face and enabled **surface attachment as child parts**, retaining existing top/bottom stack nodes.
