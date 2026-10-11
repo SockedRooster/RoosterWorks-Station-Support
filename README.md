@@ -44,6 +44,10 @@ Stock KSP MonoPropellant mass is 0.004 t per unit. Masses above are **dry** mass
 
 The author confirmed that the v1.0.1 gameplay tests passed, including the variant mass and radial attachment checks. Automated package checks were also run on the final release archive; these do not replace every possible gameplay compatibility test.
 
+## CKAN status
+
+CKAN registration is **pending** until [KSP-CKAN/NetKAN](https://github.com/KSP-CKAN/NetKAN) accepts the metadata. The existing [indexing request #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672) covers this mod; please do not open a duplicate. The maintained [NetKAN proposal](CKAN/RoosterWorksStationSupport.netkan) and [submission instructions](CKAN/PUBLISHING_GUIDE.md) are available in this repository. Until CKAN lists the mod, use the GitHub release ZIP.
+
 ## License and source
 
 MIT. Original RoosterWorks assets; no Near Future Construction files are distributed. Blender source projects, approved intermediate FBXs, model conversion scripts and v1.0.1 checks are in [`Source/`](Source/README.md). The game installer should contain `GameData/RoosterWorksStationSupport` and may include README and LICENSE, but no build tools. The [`CHECKSUMS-SHA256.txt`](CHECKSUMS-SHA256.txt) file records the v1.0.1 GameData asset hashes.

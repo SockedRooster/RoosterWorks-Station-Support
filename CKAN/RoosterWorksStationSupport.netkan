@@ -16,12 +16,16 @@
   ],
   "resources": {
     "repository": "https://github.com/SockedRooster/RoosterWorks-Station-Support",
-    "bugtracker": "https://github.com/SockedRooster/RoosterWorks-Station-Support/issues"
+    "bugtracker": "https://github.com/SockedRooster/RoosterWorks-Station-Support/issues",
+    "homepage": "https://github.com/SockedRooster/RoosterWorks-Station-Support"
   },
   "install": [
     {
       "find": "RoosterWorksStationSupport",
       "install_to": "GameData"
     }
-  ]
+  ],
+  "x_netkan_github": {
+    "prereleases": false
+  }
 }
