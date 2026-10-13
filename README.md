@@ -1,57 +1,74 @@
-# RoosterWorks Station Support v1.0.1
+# RoosterWorks Station Support v1.0.5 — TEST BUILD
 
-**Author:** SockedRooster · **License:** MIT · **KSP:** 1.12.5  
-**Repository:** https://github.com/SockedRooster/RoosterWorks-Station-Support
+Author: SockedRooster · MIT · KSP 1.12.5 · No required plugin
 
-RoosterWorks Station Support adds six custom orbital station components: four structural girders with built-in ElectricCharge and MonoPropellant storage, plus two stack adapters. The girders can switch between **Open Frame** and **Armored Panels** using stock KSP part variants. No additional plugin is required. Designed with Kerbalism use in mind, but Kerbalism is not required.
+## v1.0.5 changes
 
-## Changes in v1.0.1
+- All three adapters (Hex 1.25 m, Octo 2.5 m, Octo 3.75 m) now offer **White** and **Armored Grey** in the normal Variant selector. White is the default.
+- Grey uses the same steel-grey material as the girder armor and retains the gold trim. The finish change is cosmetic, with zero added cost or mass.
+- Only adapter shell variants were added; all girders, storage capacities, prices, attachment nodes and the extra-selector removal patch remain as in v1.0.4.
+- The user verified v1.0.4's selector removal and capacities in-game. This new adapter option has passed offline geometry/config checks and still needs its own in-game selection/save-load check.
 
-- **Armored variants now weigh 25% more (dry mass)** than the corresponding Open Frame girders. Armoring does not change their resource capacities.
-- **All six parts support improved radial attachment:** outer polygon-face attachment nodes and added invisible perimeter collision surfaces help other parts attach to the exterior rather than snap toward internal tanks and batteries.
-- All six approved visible models, textures, names, stack attachment positions, fuel/charge capacities, part IDs and costs are unchanged from v1.0.0.
+## v1.0.4 changes
 
-### Part capacities and mass
+- The 3.75 m storage girders have a further 35% reduction in both EC and MonoPropellant versus v1.0.3, rounded to whole units. Initial fill matches the new capacity. Other sizes and hollow parts are unchanged.
+- Remove the redundant **Exterior finish** selector from Station Support parts when RoosterWorks Station Modules is also installed. Keep **Open Frame**, **Armored Panels**, and **Armored Grey** in the stock Variant selector. Armor appearance, price and mass are unchanged.
+- The selector fix is a ModuleManager compatibility patch restricted to the 15 exact Station Support IDs. It runs after Station Modules adds its finish module; it does not alter Station Modules parts or its plugin. Standalone Station Support needs no additional plugin.
 
-| Part | Diameter × height | ElectricCharge | MonoPropellant | Open dry mass | Armored dry mass |
-|---|---|---:|---:|---:|---:|
-| Octo XL Girder | 2.5 m × 4.75 m | 9,000 | 1,500 | 3.200 t | 4.000 t |
-| Octo Medium Girder | 2.5 m × 2.65 m | 4,500 | 750 | 1.850 t | 2.3125 t |
-| Hex Long Girder | 1.25 m × 3.15 m | 1,200 | 200 | 0.760 t | 0.950 t |
-| Hex Medium Girder | 1.25 m × 1.75 m | 600 | 100 | 0.420 t | 0.525 t |
-| Octo → 2.5 m Adapter | 2.5 m × 0.74 m | — | — | 0.280 t | — |
-| Hex → 1.25 m Adapter | 1.25 m × 0.56 m | — | — | 0.140 t | — |
+## Existing features
 
-Stock KSP MonoPropellant mass is 0.004 t per unit. Masses above are **dry** mass, not fueled mass. The two adapters have no armor variant.
+- Reduce ElectricCharge and MonoPropellant capacities by exactly 60% on the original storage girders: 40% remains. Initial fill is reduced to match. Existing base prices and dry masses stay unchanged.
+- Add a 3.75 m octagonal family: Medium and XL storage girders, matching Hollow girders, and an octagonal-to-round 3.75 m adapter. The package now has 15 parts.
+- All 12 girders offer **Open Frame**, **Armored Panels** (original light finish), and **Armored Grey** (grey panels with gold trim). Both armored finishes add the same mass and 10% of the corresponding open base price.
+- All previously shipped mesh geometry, original materials/textures, and collision shapes are preserved. Grey armor uses an additional selectable mesh group with grey steel panel material and unchanged gold seams.
 
-## Installation and updating
+## Capacities
 
-**Release download:** [RoosterWorks Station Support releases](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases). The v1.0.1 source and assets are on `main`; use the matching **v1.0.1 release asset** when it appears on the Releases page.
+| Storage girder | ElectricCharge | MonoPropellant |
+|---|---:|---:|
+| Hex Medium | 240 | 40 |
+| Hex Long | 480 | 80 |
+| Octo 2.5 m Medium | 1,800 | 300 |
+| Octo 2.5 m XL | 3,600 | 600 |
+| Octo 3.75 m Medium | 3,949 | 658 |
+| Octo 3.75 m XL | 7,898 | 1,316 |
 
-1. Close KSP and back up saves/craft files.
-2. Remove the older `GameData/RoosterWorksStationSupport` folder to prevent mixed-version files. If an earlier prototype `GameData/RoosterWorksKerbalismAdditions` still exists, remove it to avoid duplicate part IDs.
-3. From [GitHub Releases](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases), download the **`RoosterWorks-Station-Support-v1.0.1.zip`** asset once published. Extract it into the **KSP installation root** (the folder containing `GameData`); it creates `GameData/RoosterWorksStationSupport/`. Do **not** use GitHub's automatic source-code ZIP as the player installer.
-4. In the VAB, look for the six parts under **Structural**. Existing attachment nodes and part names are preserved.
+All Hollow girders remain resource-free. Adapters have no resource storage.
 
-## Notes and limitations
+## 3.75 m dimensions and balance
 
-- The new perimeter collision surfaces are present in **both** Open Frame and Armored Panels modes. The gaps between visible open truss rails can therefore behave like solid side faces for attachment/physics.
-- Armor currently changes visible plating and part dry mass; no additional impact-resistance or shielding mechanics are claimed.
-- Green battery LEDs are static; KSP materials are simplified; high-detail models may cost performance on very large stations.
-- Resources use ordinary persistent stock `RESOURCE` definitions. Exhaustive Kerbalism background simulation testing is not claimed.
+The full octagonal family is uniformly enlarged by 1.5, so diameter is 3.75 m and nominal Medium / XL / adapter heights are 3.975 / 7.125 / 1.11 m. Stack attachment nodes use size3. Models and collision shapes are shared with the 2.5 m family and scaled by KSP.
 
-### Verification
+Base dry mass, armor mass, base cost, armor cost and entry cost scale by volume: 1.5 cubed = 3.375. Storage first used the same scaling in v1.0.3; v1.0.4 reduces those whole-unit capacities by a further 35%, then rounds to the nearest whole unit (half up). Hollow variants retain half the base dry mass and price of the matching storage part, as in v1.0.2.
 
-The author confirmed that the v1.0.1 gameplay tests passed, including the variant mass and radial attachment checks. Automated package checks were also run on the final release archive; these do not replace every possible gameplay compatibility test.
+## Installation and use
 
-## CKAN status
+With KSP closed, copy the player ZIP's `GameData/RoosterWorksStationSupport` folder into your KSP `GameData` folder and replace existing mod files. Keep one installed copy. This is a full installation, not a patch. The developer ZIP contains the same game files plus source and verification tools.
 
-CKAN registration is **pending** until [KSP-CKAN/NetKAN](https://github.com/KSP-CKAN/NetKAN) accepts the metadata. The existing [indexing request #11672](https://github.com/KSP-CKAN/NetKAN/issues/11672) covers this mod; please do not open a duplicate. The maintained [NetKAN proposal](CKAN/RoosterWorksStationSupport.netkan) and [submission instructions](CKAN/PUBLISHING_GUIDE.md) are available in this repository. Until CKAN lists the mod, use the GitHub release ZIP.
+Find the parts under Structural; search **3.75** for the enlarged family or **hollow** for empty frames. Right-click a girder to select one of the three finishes, or an adapter to select White / Armored Grey. Hollow girders are separate editor entries; their interiors have no tanks, batteries, service spine, inner ring/spoke assemblies or central equipment collider.
 
-## Development roadmap
+The new capacities apply to freshly loaded part definitions and newly placed parts. Existing .craft/save files may retain serialized resource amounts/capacities; replace affected parts in the editor and save a new craft to ensure the reduced values are applied. This build does not migrate existing saves.
 
-Future **5 m and 7.5 m structural support girders**, large-diameter adapter options, and compatibility with RoosterWorks Station Modules are tracked in [ROADMAP.md](ROADMAP.md). These are planned only; the six v1.0.1 parts remain unchanged.
+## Validation and limits
 
-## License and source
+Offline regression checks passed for all 15 configurations and 10 shared model files: capacities, scaled values, attachment node coordinates/sizes, exactly three exclusive finish choices, armor prices/masses, identical original geometry and colliders, correct grey panel material and unchanged textures. See historical `VALIDATION_v103.txt` in the developer source and current `VALIDATION_v105.txt`. v1.0.4 delta verification confirmed all original assets, variants and other part configs are unchanged.
 
-MIT. Original RoosterWorks assets; no Near Future Construction files are distributed. Blender source projects, approved intermediate FBXs, model conversion scripts and v1.0.1 checks are in [`Source/`](Source/README.md). The game installer should contain `GameData/RoosterWorksStationSupport` and may include README and LICENSE, but no build tools. The [`CHECKSUMS-SHA256.txt`](CHECKSUMS-SHA256.txt) file records the v1.0.1 GameData asset hashes.
+Blender previews show geometry and approximate materials, not KSP's actual lighting. KSP editor, flight, existing-save migration and Kerbalism persistence tests have not been run. `TEST_CHECKLIST.md` lists the remaining in-game checks.
+
+Inherited limitations: shallow invisible collision walls remain across side faces even in Open Frame mode; hollow passages are open through the ends. LEDs are static and texture/shader detail is simple. Hollow clear bores are over 0.92 m (Hex), 2.0 m (2.5 m Octo), and 3.0 m (3.75 m Octo).
+
+## Developer build
+
+The developer ZIP includes the required v1.0.2 baseline in `Source/Baseline/`. Using Python, run:
+
+```
+python Source/build_configs_v103.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
+python Source/add_grey_to_models.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
+python Source/verify_v103.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
+python Source/apply_v104.py
+python Source/apply_v105.py
+```
+
+These standard-library-only scripts reproduce the release configs/models while preserving the previous geometry. Included Blender/FBX conversion scripts also support grey armor, but are an alternative asset-editing path: the historical FBX references do not exactly reproduce every manually adjusted released model. Older version notes and verification scripts are historical. See `Source/SOURCE_NOTES_v105.md`, `Source/SOURCE_NOTES_v104.md` and historical `Source/SOURCE_NOTES_v103.md`.
+
+This local test build has not been published to GitHub or CKAN. Original artwork, author attribution and MIT license retained.

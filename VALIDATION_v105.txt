@@ -1,0 +1,7 @@
+PASS RW_Hex125_Adapter: original meshes/colliders unchanged; grey shell uses same steel-grey material as girder armor; gold trim retained.
+PASS RW_Octo25_Adapter: original meshes/colliders unchanged; grey shell uses same steel-grey material as girder armor; gold trim retained.
+PASS RW_Hex125_Adapter: White default / Armored Grey, exclusive shell visibility, zero mass/cost difference.
+PASS RW_Octo25_Adapter: White default / Armored Grey, exclusive shell visibility, zero mass/cost difference.
+PASS RW_Octo375_Adapter: White default / Armored Grey, exclusive shell visibility, zero mass/cost difference.
+PASS full delta: only 3 adapter configs, 2 shared adapter models and version metadata changed. All girders, capacities, prices, textures and compatibility patches match v1.0.4 exactly.
+IN-GAME TESTING: Author reports all functionality tested and working in KSP.

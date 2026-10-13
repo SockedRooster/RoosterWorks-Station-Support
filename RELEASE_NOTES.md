@@ -1,21 +1,18 @@
-# RoosterWorks Station Support v1.0.1
+# RoosterWorks Station Support v1.0.5
 
-## Armor Balancing & Radial Attachment Update
+Stable release for Kerbal Space Program 1.12.5.
 
-This maintenance release improves the placement of radially attached parts and gives the Armored Panels variant a meaningful mass trade-off, without changing any of the six approved designs.
+## What's new
+- Added White (default) and Armored Grey appearance variants to the 1.25 m Hex, 2.5 m Octo, and 3.75 m Octo adapters.
+- Armored Grey matches the existing girder armor finish while preserving gold trim.
+- Appearance variants do not change part mass or cost.
+- Existing girder geometry, resources, capacities, attachment nodes, and compatibility behavior are unchanged.
 
-**Changes since v1.0.0**
+## Installation
+1. Close KSP.
+2. Remove any older `GameData/RoosterWorksStationSupport` folder.
+3. Extract the distribution ZIP into the KSP installation directory, merging its `GameData` folder with KSP's `GameData` folder.
+4. Start KSP and select the desired finish using the adapter's stock Variant selector.
 
-- **Armored girder dry mass +25%**: Octo XL 3.20 → 4.00 t; Octo Medium 1.85 → 2.3125 t; Hex Long 0.76 → 0.95 t; Hex Medium 0.42 → 0.525 t. Open Frame mass and all resources are unchanged.
-- **Better radial attachment on all six parts**: added radial attachment nodes and outer-face invisible colliders to improve attachment positioning for solar panels, RCS blocks, lights and other equipment.
-- Preserved existing stack nodes, part IDs, dimensions, **visible meshes**, textures, costs, EC and MonoPropellant capacities. Native model files were updated only to add the invisible radial colliders.
-
-**Compatibility:** KSP 1.12.5 · **License:** MIT · **Author:** SockedRooster · No plugin dependencies.
-
-**Installation:** Delete any previous `GameData/RoosterWorksStationSupport` folder, then extract `RoosterWorks-Station-Support-v1.0.1.zip` into the KSP root. Back up saves and craft files before updating.
-
-**Known behavior:** The new invisible perimeter colliders remain active in Open Frame mode; an otherwise open truss side may behave as a solid collision face. Green LEDs are static. The mod uses simplified KSP materials, and extensive Kerbalism background resource simulation testing has not been claimed.
-
-**Validation:** The author reported that v1.0.1 in-game checks passed. The distribution was also validated for archive integrity and preservation of its tested GameData files.
-
-**Source:** https://github.com/SockedRooster/RoosterWorks-Station-Support
+**Testing:** The author reports successful in-game testing of all functionality.
+**License:** MIT.

@@ -152,6 +152,8 @@ def generate_materials():
  # Blender procedural noise, metalness, bump, and animated emissive LEDs
  # cannot be transferred automatically in this direct conversion.
  for name,color in COLORS.items():
+  # Preserve supplied release textures, including their exact encoded bytes.
+  if (MD/f'rw_{name}.png').is_file(): continue
   im=Image.new('RGB',(128,128),color)
   dr=ImageDraw.Draw(im)
   if name=='battery':
@@ -163,9 +165,10 @@ def generate_materials():
    for y in range(15,128,47):dr.line((0,y,127,y),fill=(194,150,76),width=1)
   im.save(MD/f'rw_{name}.png')
 
-def main(fbx, part_id, destination=None):
+def main(fbx, part_id, destination=None, hollow=False):
  global MD
  if part_id not in PARTS: raise ValueError('Unsupported part: '+part_id)
+ if hollow and 'Adapter' in part_id: raise ValueError('Hollow mode is for girders only')
  n_sides, diameter, height = PARTS[part_id]
  MD = Path(destination or (ROOT/'GameData'/'RoosterWorksStationSupport'/'Models'))
  MD.mkdir(parents=True,exist_ok=True)
@@ -208,6 +211,11 @@ def main(fbx, part_id, destination=None):
  counts=Counter();boundslo=np.array([1e9]*3);boundshi=-boundslo
  for idx,(gid,g) in enumerate(geometries.items()):
   mid=geo_owner[gid];mat_id=material_owner.get(mid)
+  # Structural-only version: retain the complete exterior frame and armor,
+  # but remove equipment and the inner end-ring assemblies from the bore.
+  if hollow and name(mid).startswith(('Monopropellant_', 'Battery_Face_',
+                                      'Central_Service_Spine', 'Lower_', 'Upper_')):
+   continue
   assert mat_id is not None,f'Missing material {name(mid)}'
   mname=materials[mat_id].p[1].split('\x00')[0]
   mkey=next((v for k,v in COLOR_BY_NAME.items() if mname.startswith(k)),None)
@@ -330,8 +338,9 @@ def main(fbx, part_id, destination=None):
  assert height*.70 < spans[1] < height*1.25,(part_id,boundslo,boundshi)
  assert diameter*.70 < spans[2] < diameter*1.25,(part_id,boundslo,boundshi)
  generate_materials()
- out=MD/(part_id+'.mu')
- w=W(out);w.i(76543,5);w.string(part_id);node_start(w,part_id)
+ output_id=part_id+('_Hollow' if hollow else '')
+ out=MD/(output_id+'.mu')
+ w=W(out);w.i(76543,5);w.string(output_id);node_start(w,output_id)
  mats={m:i for i,m in enumerate(MATKEYS)}
  # first grouped bodies and armored subgroup under root
  for (gr,m),meshes in grouped.items():
@@ -339,12 +348,17 @@ def main(fbx, part_id, destination=None):
   for partno,mesh in enumerate(meshes):
    if mesh.tris:mesh_node(w,mesh,f'Body_{m}_{partno:02}',mats[m])
  if armor_id is not None:
-  child_start(w,'ArmorPanels')
-  for (gr,m),meshes in grouped.items():
-   if gr!='armor':continue
-   for partno,mesh in enumerate(meshes):
-    if mesh.tris:mesh_node(w,mesh,f'Armor_{m}_{partno:02}',mats[m])
-  child_end(w)
+  # Separate renderer groups allow stock variants to select a real grey finish.
+  # Only the panel material changes; bronze seams and all geometry are retained.
+  for group_name, prefix, grey in [('ArmorPanels','Armor',False),
+                                    ('ArmorPanelsGrey','GreyArmor',True)]:
+   child_start(w,group_name)
+   for (gr,m),meshes in grouped.items():
+    if gr!='armor':continue
+    for partno,mesh in enumerate(meshes):
+     mat=mats['steel'] if grey and m=='white' else mats[m]
+     if mesh.tris:mesh_node(w,mesh,f'{prefix}_{m}_{partno:02}',mat)
+   child_end(w)
  # Simplified fixed collision. Keep baseline internal rail/equipment colliders,
  # plus a shallow exterior perimeter of planar box colliders for raycasting
  # radial attachments. Otherwise, clicking through the open frame can hit an
@@ -360,7 +374,8 @@ def main(fbx, part_id, destination=None):
    d=.21 if diameter>2 else .13
    child_start(w,f'RailCollider_{i:02}',pos=(radius*math.cos(t),0,radius*math.sin(t)),collider=(d,max(.10,height-.15),d));child_end(w)
   d=diameter*.42
-  child_start(w,'EquipmentCollider',collider=(d,height*.72,d));child_end(w)
+  if not hollow:
+   child_start(w,'EquipmentCollider',collider=(d,height*.72,d));child_end(w)
   face_height=height-.16
   face_width=2*radius*math.sin(math.pi/n_sides)-(.04 if diameter>2 else .023)
   # Armored panel's outer face sits near face_radius-.004 metres.
@@ -404,5 +419,6 @@ if __name__=='__main__':
  parser.add_argument('--part',required=True,choices=list(PARTS))
  parser.add_argument('--fbx',required=True,type=Path)
  parser.add_argument('--models',type=Path,default=None)
+ parser.add_argument('--hollow',action='store_true',help='Export a resource-free hollow girder model')
  options=parser.parse_args()
- main(options.fbx,options.part,options.models)
+ main(options.fbx,options.part,options.models,hollow=options.hollow)
