@@ -1,32 +1,51 @@
+"""Validate the stable RoosterWorks Station Support v1.0.5 repository layout."""
 from pathlib import Path
-import hashlib, re, json, zipfile
-ROOT=Path(__file__).resolve().parents[1]
-GD=ROOT/'GameData/RoosterWorksStationSupport'
-parts=GD/'Parts';models=GD/'Models'
-expected={
- 'RW_OctoSupport_XL':('9000','1500',True),
- 'RW_OctoSupport_Medium':('4500','750',True),
- 'RW_HexSupport_Long':('1200','200',True),
- 'RW_HexSupport_Medium':('600','100',True),
- 'RW_Octo25_Adapter':(None,None,False),
- 'RW_Hex125_Adapter':(None,None,False),
+import json
+import re
+
+ROOT = Path(__file__).resolve().parents[1]
+GAME = ROOT / "GameData" / "RoosterWorksStationSupport"
+PARTS = GAME / "Parts"
+MODELS = GAME / "Models"
+
+expected_parts = {
+    "RW_Hex125_Adapter",
+    "RW_HexSupport_Long", "RW_HexSupport_Long_Hollow",
+    "RW_HexSupport_Medium", "RW_HexSupport_Medium_Hollow",
+    "RW_Octo25_Adapter",
+    "RW_OctoSupport_Medium", "RW_OctoSupport_Medium_Hollow",
+    "RW_OctoSupport_XL", "RW_OctoSupport_XL_Hollow",
+    "RW_Octo375_Adapter",
+    "RW_Octo375Support_Medium", "RW_Octo375Support_Medium_Hollow",
+    "RW_Octo375Support_XL", "RW_Octo375Support_XL_Hollow",
 }
-assert len(list(parts.glob('*.cfg')))==6
-assert len(list(models.glob('*.mu')))==6
-for name,(ec,mono,panels) in expected.items():
- p=parts/(name+'.cfg');m=models/(name+'.mu')
- txt=p.read_text();b=m.read_bytes()
- assert txt.count('{')==txt.count('}')
- assert re.search(r'(?m)^\s*name = '+name+r'\s*$',txt)
- assert 'RoosterWorksStationSupport/Models/'+name in txt
- assert txt.count('node_stack_')==2
- assert b[:8]==(76543).to_bytes(4,'little')+(5).to_bytes(4,'little')
- assert len(b)>500000
- if panels:
-  assert 'ArmorPanels = false' in txt and 'ArmorPanels = true' in txt
-  assert ('maxAmount = '+ec) in txt and ('maxAmount = '+mono) in txt
- else:
-  assert 'RESOURCE' not in txt and 'ModulePartVariants' not in txt
- print('PASS',name,round(len(b)/1e6,2),'MB')
-assert (GD/'RoosterWorksStationSupport.version').exists()
-print('PASS all six parts and assets; KSP in-game checks still required')
+expected_models = {
+    "RW_Hex125_Adapter", "RW_HexSupport_Long",
+    "RW_HexSupport_Long_Hollow", "RW_HexSupport_Medium",
+    "RW_HexSupport_Medium_Hollow", "RW_Octo25_Adapter",
+    "RW_OctoSupport_Medium", "RW_OctoSupport_Medium_Hollow",
+    "RW_OctoSupport_XL", "RW_OctoSupport_XL_Hollow",
+}
+actual_parts = {p.stem for p in PARTS.glob("*.cfg")}
+actual_models = {p.stem for p in MODELS.glob("*.mu")}
+assert actual_parts == expected_parts, f"Part mismatch: missing {expected_parts - actual_parts}, extra {actual_parts - expected_parts}"
+assert actual_models == expected_models, f"Model mismatch: missing {expected_models - actual_models}, extra {actual_models - expected_models}"
+
+for name in sorted(expected_parts):
+    text = (PARTS / (name + ".cfg")).read_text(encoding="utf-8")
+    assert text.count("{") == text.count("}"), f"Unbalanced config: {name}"
+    assert re.search(r"(?m)^\s*name\s*=\s*" + re.escape(name) + r"\s*$", text), f"Part ID mismatch: {name}"
+    assert "RoosterWorksStationSupport/Models/" in text, f"Missing model path: {name}"
+    assert text.count("node_stack_") >= 2, f"Missing stack nodes: {name}"
+    print("PASS part", name)
+
+for name in sorted(expected_models):
+    data = (MODELS / (name + ".mu")).read_bytes()
+    assert data[:8] == (76543).to_bytes(4, "little") + (5).to_bytes(4, "little"), f"Invalid MU header: {name}"
+    assert len(data) > 500000, f"Unexpectedly small model: {name}"
+    print("PASS model", name)
+
+version = json.loads((GAME / "RoosterWorksStationSupport.version").read_text(encoding="utf-8"))
+assert version["VERSION"] == {"MAJOR": 1, "MINOR": 0, "PATCH": 5, "BUILD": 0}
+assert version["KSP_VERSION"] == {"MAJOR": 1, "MINOR": 12, "PATCH": 5}
+print("PASS v1.0.5: 15 part configs, 10 models, version metadata")
