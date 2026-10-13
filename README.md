@@ -1,4 +1,4 @@
-# RoosterWorks Station Support v1.0.5 — TEST BUILD
+# RoosterWorks Station Support v1.0.5
 
 Author: SockedRooster · MIT · KSP 1.12.5 · No required plugin
 
