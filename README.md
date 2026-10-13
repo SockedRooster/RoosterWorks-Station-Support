@@ -7,7 +7,7 @@ Author: SockedRooster · MIT · KSP 1.12.5 · No required plugin
 - All three adapters (Hex 1.25 m, Octo 2.5 m, Octo 3.75 m) now offer **White** and **Armored Grey** in the normal Variant selector. White is the default.
 - Grey uses the same steel-grey material as the girder armor and retains the gold trim. The finish change is cosmetic, with zero added cost or mass.
 - Only adapter shell variants were added; all girders, storage capacities, prices, attachment nodes and the extra-selector removal patch remain as in v1.0.4.
-- The user verified v1.0.4's selector removal and capacities in-game. This new adapter option has passed offline geometry/config checks and still needs its own in-game selection/save-load check.
+- The author has verified v1.0.5 functionality in-game, including the adapter finish variants. This is a stable release.
 
 ## v1.0.4 changes
 
@@ -53,13 +53,13 @@ The new capacities apply to freshly loaded part definitions and newly placed par
 
 Offline regression checks passed for all 15 configurations and 10 shared model files: capacities, scaled values, attachment node coordinates/sizes, exactly three exclusive finish choices, armor prices/masses, identical original geometry and colliders, correct grey panel material and unchanged textures. See historical `VALIDATION_v103.txt` in the developer source and current `VALIDATION_v105.txt`. v1.0.4 delta verification confirmed all original assets, variants and other part configs are unchanged.
 
-Blender previews show geometry and approximate materials, not KSP's actual lighting. KSP editor, flight, existing-save migration and Kerbalism persistence tests have not been run. `TEST_CHECKLIST.md` lists the remaining in-game checks.
+Blender previews show geometry and approximate materials, not KSP's actual lighting. The author confirms successful in-game testing of v1.0.5. Existing-save migration and compatibility with other mod combinations are not independently certified. `TEST_CHECKLIST.md` is retained as a regression checklist.
 
 Inherited limitations: shallow invisible collision walls remain across side faces even in Open Frame mode; hollow passages are open through the ends. LEDs are static and texture/shader detail is simple. Hollow clear bores are over 0.92 m (Hex), 2.0 m (2.5 m Octo), and 3.0 m (3.75 m Octo).
 
 ## Developer build
 
-The developer ZIP includes the required v1.0.2 baseline in `Source/Baseline/`. Using Python, run:
+The following historical rebuild scripts require an archived v1.0.2 baseline ZIP, which is not included in the current repository. To reproduce those earlier development steps, supply that baseline separately.
 
 ```
 python Source/build_configs_v103.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
@@ -71,4 +71,4 @@ python Source/apply_v105.py
 
 These standard-library-only scripts reproduce the release configs/models while preserving the previous geometry. Included Blender/FBX conversion scripts also support grey armor, but are an alternative asset-editing path: the historical FBX references do not exactly reproduce every manually adjusted released model. Older version notes and verification scripts are historical. See `Source/SOURCE_NOTES_v105.md`, `Source/SOURCE_NOTES_v104.md` and historical `Source/SOURCE_NOTES_v103.md`.
 
-This local test build has not been published to GitHub or CKAN. Original artwork, author attribution and MIT license retained.
+v1.0.5 is published as a stable GitHub release. CKAN indexing is requested separately. Original artwork, author attribution and MIT license retained.
