@@ -1,36 +1,45 @@
-# RoosterWorks Station Support — developer source
+# RoosterWorks Station Support — developer source (v1.0.8)
 
-The authoritative **v1.0.1 gameplay files** are under `GameData/RoosterWorksStationSupport/`. Nothing in this `Source/` directory should be copied into a player's KSP `GameData`.
+The **player-installable files** live in `GameData/RoosterWorksStationSupport/` at the repository root. Do not copy `Source/`, `Tools/`, or `Previews/` into a KSP installation.
 
-## Approved native model sources
+## Current development workflow
 
-- `Blender/Approved_RW_OctoSupport_XL.blend` and `Blender/Approved_OctoXL_INTERMEDIATE.fbx` preserve the approved Octo XL source and export.
-- `Blender/Approved_OctoXL_Builder_USER_EDITED.py` preserves the creator-edited Blender construction script.
-- `Blender/RoosterWorks_Girder_Builder.py` is the editable general-purpose Blender construction script.
-- `FiveFBXExports/*_INTERMEDIATE.fbx` stores the other five approved source exports.
-- `Conversion/convert_station_fbx.py` and `Conversion/parse_rw_fbx.py` implement native KSP `.mu` conversion.
-
-The approved **visible geometry** was unchanged between v1.0.0 and v1.0.1. The v1.0.1 converter adds hidden `RadialFaceCollider_XX` box colliders along the outer polygon faces. These colliders exist in both Open Frame and Armored modes. Stock `ModulePartVariants` changes the visible armor and additive dry mass, not the resource capacity.
-
-## Rebuilding models
-
-Rebuilding is for **development only**: it rewrites tracked models and textures, potentially changing tested binaries.
+The active build/validation scripts are in `Tools/`:
 
 ```bash
-python -m pip install -r Source/Conversion/requirements.txt
-python Source/Conversion/convert_all.py
-python Source/verify_release.py
-python Source/verify_v101.py
+python Tools/build_support_revamp.py
+python Tools/validate_support_revamp.py
+python Tools/package_support_revamp.py
 ```
 
-The first converter uses the approved FBXs in `Source/Blender/` and `Source/FiveFBXExports/`. Preserve or review the existing GameData before running it.
+Python dependencies used by the current build include NumPy and Pillow. Review the scripts before running them: rebuilding rewrites tracked `.mu` models and other assets, and should **not** be used to modify a tested release unintentionally. Use the tagged release ZIP for gameplay.
 
-## Validation and release packaging
+For an optional exact-model Blender preview:
 
-`verify_release.py` checks all six KSP models/configs at a basic level. `verify_v101.py` checks v1.0.1 radial colliders, variant mass, resources and version; it optionally accepts `--baseline-zip path/to/v1.0.0.zip` for binary regression comparison.
+```bash
+blender --background --threads 2 --python Tools/render_support_revamp.py
+```
 
-The repo-root `CHECKSUMS-SHA256.txt` lists the expected hashes of released v1.0.1 GameData files. Recheck it before publishing. Static checks are not substitutes for VAB/flight tests; creator testing for v1.0.1 was reported as passed.
+The renderer produces its normal-map preview intermediates from the `GameData` DDS textures when it runs. Those generated copies do not need to be committed.
 
-## Historical development
+## Editable model sources
 
-Earlier prototype scripts generated `RoosterWorksKerbalismAdditions` instead of the current `RoosterWorksStationSupport` folder and were removed to prevent accidental builds from obsolete code. Legacy conversion details remain recoverable in Git history. Do not reintroduce old prototype files into player releases.
+- `Blender/`: approved original and revised editable Blender projects and author-written builder scripts.
+- `FiveFBXExports/`: approved intermediate FBX exports for the original family.
+- `Conversion/`: earlier native `.mu` conversion pipeline, retained for historical reproducibility; **not** the current v1.0.8 rebuild command.
+- `RevampBaseline/`: earlier gameplay models/configs used as regression baselines by `Tools/validate_support_revamp.py`. **Do not delete or replace with the current GameData:** the validator explicitly compares against them.
+- `Textures/`: editable texture source/intermediates; gameplay textures are in root `GameData/`.
+- `BatteryMaps/`: legacy battery placement maps and audit data.
+- `SOURCE_NOTES_v*.md` and `SOURCE_NOTES.md`: versioned historical notes, not current installation instructions.
+
+The current validator also uses `Reports/SUPPORT_REVAMP_01.json` and `Reports/ADAPTER_BASELINE_SHA256.json` in the repository root. Preserve these records during development.
+
+## Historical tooling
+
+Older `Source/verify_v*.py`, preview helpers and `Conversion/` scripts were created for earlier releases. They are retained as reference material and may have legacy version assumptions. Two one-time migration scripts that could rewrite current files to development-state content were removed from the active `Tools/` directory; both remain retrievable in Git history.
+
+## Release compatibility
+
+v1.0.8 includes 15 part IDs (six main girders, six legacy Hollow IDs and three adapters). The legacy Hollow IDs remain loadable for existing craft even though they are hidden from the part catalog. B9PartSwitch and ModuleManager are required and not bundled. In-game testing was reported as passed by the author; offline validation is not a substitute for re-testing modified game assets.
+
+See the root `README.md`, `RELEASE_NOTES.md`, and `CKAN/PUBLISHING_GUIDE.md` for current installation and distribution details.

@@ -18,3 +18,7 @@ venv/
 
 # Native game assets (.mu, PNGs, .cfg, .version), FBX source exports, and
 # Blender .blend source projects are intentionally version-controlled.
+
+# Generated preview normal-map intermediates (rebuilt from GameData DDS textures)
+Previews/**/metal_normal.png
+Previews/**/insulation_normal.png
