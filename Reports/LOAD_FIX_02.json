@@ -1,0 +1,77 @@
+{
+  "models": [
+    {
+      "model": "RW_Hex125_Adapter.mu",
+      "before": 14,
+      "after": 11,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_HexSupport_Long.mu",
+      "before": 14,
+      "after": 12,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_HexSupport_Long_Hollow.mu",
+      "before": 14,
+      "after": 14,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_HexSupport_Medium.mu",
+      "before": 14,
+      "after": 12,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_HexSupport_Medium_Hollow.mu",
+      "before": 14,
+      "after": 14,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_Octo25_Adapter.mu",
+      "before": 14,
+      "after": 11,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_OctoSupport_Medium.mu",
+      "before": 14,
+      "after": 12,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_OctoSupport_Medium_Hollow.mu",
+      "before": 14,
+      "after": 14,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_OctoSupport_XL.mu",
+      "before": 14,
+      "after": 12,
+      "geometry_unchanged": true
+    },
+    {
+      "model": "RW_OctoSupport_XL_Hollow.mu",
+      "before": 14,
+      "after": 14,
+      "geometry_unchanged": true
+    }
+  ],
+  "integer_corrections": [
+    {
+      "part": "RW_Octo375Support_Medium",
+      "old": "43537.5",
+      "new": "43538"
+    },
+    {
+      "part": "RW_Octo375Support_Medium_Hollow",
+      "old": "21768.75",
+      "new": "21769"
+    }
+  ],
+  "runtime_verified": false
+}

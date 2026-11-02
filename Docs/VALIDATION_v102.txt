@@ -1,0 +1,22 @@
+RoosterWorks Station Support v1.0.2 — offline validation
+Result: PASS (2026-10-13)
+Baseline: supplied RoosterWorks-Station-Support-v1.0.1.zip
+Command: python Source/verify_v102.py --baseline-zip <v1.0.1-player.zip>
+
+All ten configurations and ten MU files parsed successfully.
+Original six MU files and eight texture PNGs match baseline bytes exactly.
+Original resources, base prices, dry masses and attachment nodes preserved.
+Both adapter configurations match baseline exactly.
+All eight armored girder variants add 10% of their corresponding base price.
+Open variant cost is explicitly zero; original armor mass additions retained.
+Four hollow configs have no resources and half the matching storage base price/dry mass.
+Hollow frame triangles are a strict subset of the original; armor triangles match exactly.
+Hollow geometry and collision checks: clear axial diameter >0.92m Hex, >2.0m Octo.
+No center equipment collider in hollow models.
+Valid mesh indices, material references, finite transforms and positive collider dimensions.
+Version metadata: 1.0.2.0.
+Symmetry-axis mathematical check: Parent axis preserves longitudinal position.
+Blender geometry previews rendered and visually inspected.
+
+NOT RUN: KSP VAB/SPH, flight, save/reload, or Kerbalism tests.
+The user's symmetry issue has not been reproduced in-game. Try Parent radial symmetry.

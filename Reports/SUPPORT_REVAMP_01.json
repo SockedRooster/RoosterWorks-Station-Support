@@ -1,0 +1,421 @@
+{
+  "status": "PASS offline; in-game tested and approved by author for v1.0.8 release",
+  "models": [
+    {
+      "model": "RW_HexSupport_Long.mu",
+      "meshes": 58,
+      "triangles": 146708
+    },
+    {
+      "model": "RW_HexSupport_Long_Hollow.mu",
+      "meshes": 23,
+      "triangles": 48996
+    },
+    {
+      "model": "RW_HexSupport_Medium.mu",
+      "meshes": 58,
+      "triangles": 104412
+    },
+    {
+      "model": "RW_HexSupport_Medium_Hollow.mu",
+      "meshes": 23,
+      "triangles": 30708
+    },
+    {
+      "model": "RW_OctoSupport_Medium.mu",
+      "meshes": 58,
+      "triangles": 101852
+    },
+    {
+      "model": "RW_OctoSupport_Medium_Hollow.mu",
+      "meshes": 23,
+      "triangles": 36036
+    },
+    {
+      "model": "RW_OctoSupport_XL.mu",
+      "meshes": 58,
+      "triangles": 145076
+    },
+    {
+      "model": "RW_OctoSupport_XL_Hollow.mu",
+      "meshes": 23,
+      "triangles": 58052
+    }
+  ],
+  "capacities": [
+    {
+      "part": "RW_HexSupport_Long",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 108.0,
+        "Oxidizer": 132.0
+      },
+      "dry_mass_t": 0.53,
+      "tank_volume_m3": 1.4749
+    },
+    {
+      "part": "RW_HexSupport_Long",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 240
+      },
+      "dry_mass_t": 0.53,
+      "tank_volume_m3": 1.4749
+    },
+    {
+      "part": "RW_HexSupport_Long",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 240
+      },
+      "dry_mass_t": 0.53,
+      "tank_volume_m3": 1.4749
+    },
+    {
+      "part": "RW_HexSupport_Long",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 240
+      },
+      "dry_mass_t": 0.53,
+      "tank_volume_m3": 1.4749
+    },
+    {
+      "part": "RW_HexSupport_Long",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 2100
+      },
+      "dry_mass_t": 0.575,
+      "tank_volume_m3": 1.4749
+    },
+    {
+      "part": "RW_HexSupport_Medium",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 54.0,
+        "Oxidizer": 66.0
+      },
+      "dry_mass_t": 0.285,
+      "tank_volume_m3": 0.7856
+    },
+    {
+      "part": "RW_HexSupport_Medium",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 120
+      },
+      "dry_mass_t": 0.285,
+      "tank_volume_m3": 0.7856
+    },
+    {
+      "part": "RW_HexSupport_Medium",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 120
+      },
+      "dry_mass_t": 0.285,
+      "tank_volume_m3": 0.7856
+    },
+    {
+      "part": "RW_HexSupport_Medium",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 120
+      },
+      "dry_mass_t": 0.285,
+      "tank_volume_m3": 0.7856
+    },
+    {
+      "part": "RW_HexSupport_Medium",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 1100
+      },
+      "dry_mass_t": 0.3075,
+      "tank_volume_m3": 0.7856
+    },
+    {
+      "part": "RW_Octo375Support_Medium",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 1395.0,
+        "Oxidizer": 1705.0000000000002
+      },
+      "dry_mass_t": 5.05938,
+      "tank_volume_m3": 18.3218
+    },
+    {
+      "part": "RW_Octo375Support_Medium",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 3100
+      },
+      "dry_mass_t": 5.05938,
+      "tank_volume_m3": 18.3218
+    },
+    {
+      "part": "RW_Octo375Support_Medium",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 3100
+      },
+      "dry_mass_t": 5.05938,
+      "tank_volume_m3": 18.3218
+    },
+    {
+      "part": "RW_Octo375Support_Medium",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 3100
+      },
+      "dry_mass_t": 5.05938,
+      "tank_volume_m3": 18.3218
+    },
+    {
+      "part": "RW_Octo375Support_Medium",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 20900
+      },
+      "dry_mass_t": 5.64062,
+      "tank_volume_m3": 18.3218
+    },
+    {
+      "part": "RW_Octo375Support_XL",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 2655.0,
+        "Oxidizer": 3245.0000000000005
+      },
+      "dry_mass_t": 9.0875,
+      "tank_volume_m3": 34.7706
+    },
+    {
+      "part": "RW_Octo375Support_XL",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 5900
+      },
+      "dry_mass_t": 9.0875,
+      "tank_volume_m3": 34.7706
+    },
+    {
+      "part": "RW_Octo375Support_XL",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 5900
+      },
+      "dry_mass_t": 9.0875,
+      "tank_volume_m3": 34.7706
+    },
+    {
+      "part": "RW_Octo375Support_XL",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 5900
+      },
+      "dry_mass_t": 9.0875,
+      "tank_volume_m3": 34.7706
+    },
+    {
+      "part": "RW_Octo375Support_XL",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 42700
+      },
+      "dry_mass_t": 10.19375,
+      "tank_volume_m3": 34.7706
+    },
+    {
+      "part": "RW_OctoSupport_Medium",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 414.0,
+        "Oxidizer": 506.00000000000006
+      },
+      "dry_mass_t": 1.5,
+      "tank_volume_m3": 5.4287
+    },
+    {
+      "part": "RW_OctoSupport_Medium",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 920
+      },
+      "dry_mass_t": 1.5,
+      "tank_volume_m3": 5.4287
+    },
+    {
+      "part": "RW_OctoSupport_Medium",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 920
+      },
+      "dry_mass_t": 1.5,
+      "tank_volume_m3": 5.4287
+    },
+    {
+      "part": "RW_OctoSupport_Medium",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 920
+      },
+      "dry_mass_t": 1.5,
+      "tank_volume_m3": 5.4287
+    },
+    {
+      "part": "RW_OctoSupport_Medium",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 6200
+      },
+      "dry_mass_t": 1.6725,
+      "tank_volume_m3": 5.4287
+    },
+    {
+      "part": "RW_OctoSupport_XL",
+      "option": "LFO",
+      "resources": {
+        "LiquidFuel": 783.0,
+        "Oxidizer": 957.0000000000001
+      },
+      "dry_mass_t": 2.6875,
+      "tank_volume_m3": 10.3024
+    },
+    {
+      "part": "RW_OctoSupport_XL",
+      "option": "LF",
+      "resources": {
+        "LiquidFuel": 1740
+      },
+      "dry_mass_t": 2.6875,
+      "tank_volume_m3": 10.3024
+    },
+    {
+      "part": "RW_OctoSupport_XL",
+      "option": "Ox",
+      "resources": {
+        "Oxidizer": 1740
+      },
+      "dry_mass_t": 2.6875,
+      "tank_volume_m3": 10.3024
+    },
+    {
+      "part": "RW_OctoSupport_XL",
+      "option": "Mono",
+      "resources": {
+        "MonoPropellant": 1740
+      },
+      "dry_mass_t": 2.6875,
+      "tank_volume_m3": 10.3024
+    },
+    {
+      "part": "RW_OctoSupport_XL",
+      "option": "Xenon",
+      "resources": {
+        "XenonGas": 12600
+      },
+      "dry_mass_t": 3.01375,
+      "tank_volume_m3": 10.3024
+    }
+  ],
+  "physical_volume": {
+    "RW_HexSupport_Long": {
+      "tank": 1.4749149190073358,
+      "xenon": 1.090394450183457
+    },
+    "RW_HexSupport_Medium": {
+      "tank": 0.7856076029076875,
+      "xenon": 0.5516113100928078
+    },
+    "RW_OctoSupport_Medium": {
+      "tank": 5.428672105403162,
+      "xenon": 3.104417140522313
+    },
+    "RW_OctoSupport_XL": {
+      "tank": 10.302413284476222,
+      "xenon": 6.3371159810662085
+    }
+  },
+  "validation": {
+    "models": 10,
+    "parts": 15,
+    "external_colliders": 128,
+    "stock_appearance_options": 42,
+    "storage_options": 42,
+    "hollow_options": 24,
+    "resource_definitions": 42,
+    "interface_caps": 120,
+    "max_mesh_vertices": 26464,
+    "visible_triangle_counts": {
+      "RW_OctoSupport_Medium/Standard": 31000,
+      "RW_OctoSupport_Medium/Battery": 28168,
+      "RW_OctoSupport_Medium/Empty": 13280,
+      "RW_OctoSupport_Medium/ServiceCore": 23684,
+      "RW_OctoSupport_Medium/LFO": 25240,
+      "RW_OctoSupport_Medium/LF": 25240,
+      "RW_OctoSupport_Medium/Ox": 25240,
+      "RW_OctoSupport_Medium/Mono": 25240,
+      "RW_OctoSupport_Medium/Xenon": 34528,
+      "RW_HexSupport_Medium/Standard": 32112,
+      "RW_HexSupport_Medium/Battery": 29568,
+      "RW_HexSupport_Medium/Empty": 10464,
+      "RW_HexSupport_Medium/ServiceCore": 21444,
+      "RW_HexSupport_Medium/LFO": 22296,
+      "RW_HexSupport_Medium/LF": 22296,
+      "RW_HexSupport_Medium/Ox": 22296,
+      "RW_HexSupport_Medium/Mono": 22296,
+      "RW_HexSupport_Medium/Xenon": 31584,
+      "RW_OctoSupport_XL_Hollow/Empty": 21088,
+      "RW_OctoSupport_XL_Hollow/ServiceCore": 33348,
+      "RW_Octo375Support_Medium_Hollow/Empty": 13280,
+      "RW_Octo375Support_Medium_Hollow/ServiceCore": 23684,
+      "RW_Octo375Support_Medium/Standard": 31000,
+      "RW_Octo375Support_Medium/Battery": 28168,
+      "RW_Octo375Support_Medium/Empty": 13280,
+      "RW_Octo375Support_Medium/ServiceCore": 23684,
+      "RW_Octo375Support_Medium/LFO": 25240,
+      "RW_Octo375Support_Medium/LF": 25240,
+      "RW_Octo375Support_Medium/Ox": 25240,
+      "RW_Octo375Support_Medium/Mono": 25240,
+      "RW_Octo375Support_Medium/Xenon": 34528,
+      "RW_HexSupport_Long/Standard": 47720,
+      "RW_HexSupport_Long/Battery": 45848,
+      "RW_HexSupport_Long/Empty": 16608,
+      "RW_HexSupport_Long/ServiceCore": 30468,
+      "RW_HexSupport_Long/LFO": 32848,
+      "RW_HexSupport_Long/LF": 32848,
+      "RW_HexSupport_Long/Ox": 32848,
+      "RW_HexSupport_Long/Mono": 32848,
+      "RW_HexSupport_Long/Xenon": 37728,
+      "RW_OctoSupport_Medium_Hollow/Empty": 13280,
+      "RW_OctoSupport_Medium_Hollow/ServiceCore": 23684,
+      "RW_Octo375Support_XL/Standard": 46920,
+      "RW_Octo375Support_XL/Battery": 44664,
+      "RW_Octo375Support_XL/Empty": 21088,
+      "RW_Octo375Support_XL/ServiceCore": 33348,
+      "RW_Octo375Support_XL/LFO": 37456,
+      "RW_Octo375Support_XL/LF": 37456,
+      "RW_Octo375Support_XL/Ox": 37456,
+      "RW_Octo375Support_XL/Mono": 37456,
+      "RW_Octo375Support_XL/Xenon": 42336,
+      "RW_HexSupport_Medium_Hollow/Empty": 10464,
+      "RW_HexSupport_Medium_Hollow/ServiceCore": 21444,
+      "RW_Octo375Support_XL_Hollow/Empty": 21088,
+      "RW_Octo375Support_XL_Hollow/ServiceCore": 33348,
+      "RW_HexSupport_Long_Hollow/Empty": 16608,
+      "RW_HexSupport_Long_Hollow/ServiceCore": 30468,
+      "RW_OctoSupport_XL/Standard": 46920,
+      "RW_OctoSupport_XL/Battery": 44664,
+      "RW_OctoSupport_XL/Empty": 21088,
+      "RW_OctoSupport_XL/ServiceCore": 33348,
+      "RW_OctoSupport_XL/LFO": 37456,
+      "RW_OctoSupport_XL/LF": 37456,
+      "RW_OctoSupport_XL/Ox": 37456,
+      "RW_OctoSupport_XL/Mono": 37456,
+      "RW_OctoSupport_XL/Xenon": 42336
+    },
+    "core_wiring_junctions": 64
+  }
+}

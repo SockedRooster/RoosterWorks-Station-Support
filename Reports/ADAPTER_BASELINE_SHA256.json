@@ -1,0 +1,7 @@
+{
+  "Models/RW_Hex125_Adapter.mu": "79ba98c4cdfd770c3e14f6da21e1883abb1cf88c4fa94bcb32c6bbb0a4b67b08",
+  "Models/RW_Octo25_Adapter.mu": "af9fae479ffa7d10f4ba552054851aa9e5b9d2a7e199a173cf2ab32212f4e39d",
+  "Parts/RW_Hex125_Adapter.cfg": "f114faad8a8e4bb66fd446a63d0578b097278753d64ec10ce782c3e22a2ea4cd",
+  "Parts/RW_Octo25_Adapter.cfg": "495b7f7980176b2df218bc113a52fc53df84e518a5bcda1bb0e69a4e7cf598e7",
+  "Parts/RW_Octo375_Adapter.cfg": "ff70d3c47fd21ef5478042179c7d7c062a3e234c4464e572e2659734b522bbaf"
+}

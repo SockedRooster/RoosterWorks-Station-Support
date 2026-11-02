@@ -1,74 +1,50 @@
-# RoosterWorks Station Support v1.0.5
+# RoosterWorks Station Support v1.0.8
 
-Author: SockedRooster · MIT · KSP 1.12.5 · No required plugin
+**Stable release · SockedRooster · MIT · Kerbal Space Program 1.12.5**
 
-## v1.0.5 changes
+A modular structural support part collection with frame/armor variants, selectable equipment interiors, integrated service wiring, and matching adapters in 1.25 m, 2.5 m, and 3.75 m families.
 
-- All three adapters (Hex 1.25 m, Octo 2.5 m, Octo 3.75 m) now offer **White** and **Armored Grey** in the normal Variant selector. White is the default.
-- Grey uses the same steel-grey material as the girder armor and retains the gold trim. The finish change is cosmetic, with zero added cost or mass.
-- Only adapter shell variants were added; all girders, storage capacities, prices, attachment nodes and the extra-selector removal patch remain as in v1.0.4.
-- The author has verified v1.0.5 functionality in-game, including the adapter finish variants. This is a stable release.
+See [RELEASE_NOTES.md](RELEASE_NOTES.md) for full release changes, dependencies and installation steps.
 
-## v1.0.4 changes
+## Parts and selectors
 
-- The 3.75 m storage girders have a further 35% reduction in both EC and MonoPropellant versus v1.0.3, rounded to whole units. Initial fill matches the new capacity. Other sizes and hollow parts are unchanged.
-- Remove the redundant **Exterior finish** selector from Station Support parts when RoosterWorks Station Modules is also installed. Keep **Open Frame**, **Armored Panels**, and **Armored Grey** in the stock Variant selector. Armor appearance, price and mass are unchanged.
-- The selector fix is a ModuleManager compatibility patch restricted to the 15 exact Station Support IDs. It runs after Station Modules adds its finish module; it does not alter Station Modules parts or its plugin. Standalone Station Support needs no additional plugin.
+- **6 main support girders**: Hex 1.25 m Medium/Long, Octo 2.5 m Medium/XL, and Octo 3.75 m Medium/XL.
+- **6 legacy Hollow girder IDs**: retained for existing craft, but hidden from the editor; use Empty Frame or Central Service Core on the main girder instead.
+- **3 stack adapters**: matching Hex, Octo 2.5 m and Octo 3.75 m connections.
+- **Main girder Storage modes**: Standard EC + MonoPropellant; Battery Only; Empty Frame; Central Service Core; LF/Ox; Liquid Fuel; Oxidizer; Monopropellant; Xenon.
+- **Main girder appearance modes**: Open Frame, Armored Panels, Armored Grey. Adapter appearance: White or Armored Grey.
 
-## Existing features
+| Main girder | Battery-only EC | LF / Ox | LF-only, Ox-only or Mono | XenonGas |
+|---|---:|---:|---:|---:|
+| Hex 1.25 m Medium | 2,000 | 54 / 66 | 120 | 1,100 |
+| Hex 1.25 m Long | 4,000 | 108 / 132 | 240 | 2,100 |
+| Octo 2.5 m Medium | 15,000 | 414 / 506 | 920 | 6,200 |
+| Octo 2.5 m XL | 30,000 | 783 / 957 | 1,740 | 12,600 |
+| Octo 3.75 m Medium | 33,000 | 1,395 / 1,705 | 3,100 | 20,900 |
+| Octo 3.75 m XL | 66,000 | 2,655 / 3,245 | 5,900 | 42,700 |
 
-- Reduce ElectricCharge and MonoPropellant capacities by exactly 60% on the original storage girders: 40% remains. Initial fill is reduced to match. Existing base prices and dry masses stay unchanged.
-- Add a 3.75 m octagonal family: Medium and XL storage girders, matching Hollow girders, and an octagonal-to-round 3.75 m adapter. The package now has 15 parts.
-- All 12 girders offer **Open Frame**, **Armored Panels** (original light finish), and **Armored Grey** (grey panels with gold trim). Both armored finishes add the same mass and 10% of the corresponding open base price.
-- All previously shipped mesh geometry, original materials/textures, and collision shapes are preserved. Grey armor uses an additional selectable mesh group with grey steel panel material and unchanged gold seams.
+Standard EC and MonoPropellant values retain the previous balancing; the battery-only values refer to Battery Only mode. Tank resource amounts are gameplay capacities, not physical pressure ratings. B9PartSwitch handles the equipment/capacity and appearance is controlled separately by ModulePartVariants.
 
-## Capacities
+## Install
 
-| Storage girder | ElectricCharge | MonoPropellant |
-|---|---:|---:|
-| Hex Medium | 240 | 40 |
-| Hex Long | 480 | 80 |
-| Octo 2.5 m Medium | 1,800 | 300 |
-| Octo 2.5 m XL | 3,600 | 600 |
-| Octo 3.75 m Medium | 3,949 | 658 |
-| Octo 3.75 m XL | 7,898 | 1,316 |
+Copy the release ZIP's `GameData/RoosterWorksStationSupport` folder into your KSP installation's `GameData` directory after removing an older copy. **B9PartSwitch and ModuleManager are required but not bundled.** Upgrading existing saved craft may require replacing parts in the editor to refresh serialized resources. The release targets KSP 1.12.5.
 
-All Hollow girders remain resource-free. Adapters have no resource storage.
+## Source and validation
 
-## 3.75 m dimensions and balance
+The Developer-Source package contains the build toolchain under `Tools/`, original and derived resources under `Source/`, editable Blender scenes, previews, compatibility patches and the latest validation report.
 
-The full octagonal family is uniformly enlarged by 1.5, so diameter is 3.75 m and nominal Medium / XL / adapter heights are 3.975 / 7.125 / 1.11 m. Stack attachment nodes use size3. Models and collision shapes are shared with the 2.5 m family and scaled by KSP.
+To rebuild the geometry (Python with NumPy and Pillow):
 
-Base dry mass, armor mass, base cost, armor cost and entry cost scale by volume: 1.5 cubed = 3.375. Storage first used the same scaling in v1.0.3; v1.0.4 reduces those whole-unit capacities by a further 35%, then rounds to the nearest whole unit (half up). Hollow variants retain half the base dry mass and price of the matching storage part, as in v1.0.2.
-
-## Installation and use
-
-With KSP closed, copy the player ZIP's `GameData/RoosterWorksStationSupport` folder into your KSP `GameData` folder and replace existing mod files. Keep one installed copy. This is a full installation, not a patch. The developer ZIP contains the same game files plus source and verification tools.
-
-Find the parts under Structural; search **3.75** for the enlarged family or **hollow** for empty frames. Right-click a girder to select one of the three finishes, or an adapter to select White / Armored Grey. Hollow girders are separate editor entries; their interiors have no tanks, batteries, service spine, inner ring/spoke assemblies or central equipment collider.
-
-The new capacities apply to freshly loaded part definitions and newly placed parts. Existing .craft/save files may retain serialized resource amounts/capacities; replace affected parts in the editor and save a new craft to ensure the reduced values are applied. This build does not migrate existing saves.
-
-## Validation and limits
-
-Offline regression checks passed for all 15 configurations and 10 shared model files: capacities, scaled values, attachment node coordinates/sizes, exactly three exclusive finish choices, armor prices/masses, identical original geometry and colliders, correct grey panel material and unchanged textures. See historical `VALIDATION_v103.txt` in the developer source and current `VALIDATION_v105.txt`. v1.0.4 delta verification confirmed all original assets, variants and other part configs are unchanged.
-
-Blender previews show geometry and approximate materials, not KSP's actual lighting. The author confirms successful in-game testing of v1.0.5. Existing-save migration and compatibility with other mod combinations are not independently certified. `TEST_CHECKLIST.md` is retained as a regression checklist.
-
-Inherited limitations: shallow invisible collision walls remain across side faces even in Open Frame mode; hollow passages are open through the ends. LEDs are static and texture/shader detail is simple. Hollow clear bores are over 0.92 m (Hex), 2.0 m (2.5 m Octo), and 3.0 m (3.75 m Octo).
-
-## Developer build
-
-The following historical rebuild scripts require an archived v1.0.2 baseline ZIP, which is not included in the current repository. To reproduce those earlier development steps, supply that baseline separately.
-
-```
-python Source/build_configs_v103.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
-python Source/add_grey_to_models.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
-python Source/verify_v103.py --baseline-zip Source/Baseline/RoosterWorks-Station-Support-v1.0.2-TEST.zip
-python Source/apply_v104.py
-python Source/apply_v105.py
+```bash
+python Tools/build_support_revamp.py
+python Tools/validate_support_revamp.py
+python Tools/package_support_revamp.py
 ```
 
-These standard-library-only scripts reproduce the release configs/models while preserving the previous geometry. Included Blender/FBX conversion scripts also support grey armor, but are an alternative asset-editing path: the historical FBX references do not exactly reproduce every manually adjusted released model. Older version notes and verification scripts are historical. See `Source/SOURCE_NOTES_v105.md`, `Source/SOURCE_NOTES_v104.md` and historical `Source/SOURCE_NOTES_v103.md`.
+Optional Blender preview: `blender --background --threads 2 --python Tools/render_support_revamp.py`. Geometry rebuilding can rewrite compiled `.mu` files; use the packaged player release if you just want to install the tested game files. The checker accepts legacy Windows-1252 punctuation in several original KSP display titles without rewriting those config files. `Source/RevampBaseline` and historical release notes are retained for comparison.
 
-v1.0.5 is published as a stable GitHub release. CKAN indexing is requested separately. Original artwork, author attribution and MIT license retained.
+## License
+
+MIT · SockedRooster. See [LICENSE](LICENSE).
+
+[Repository](https://github.com/SockedRooster/RoosterWorks-Station-Support) · [Releases](https://github.com/SockedRooster/RoosterWorks-Station-Support/releases)

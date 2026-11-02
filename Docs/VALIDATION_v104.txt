@@ -1,0 +1,9 @@
+v1.0.4 configuration verification
+3.75 m Medium: EC 3949, MonoPropellant 658 (initial fill and capacity).
+3.75 m XL: EC 7898, MonoPropellant 1316 (initial fill and capacity).
+These values are 65% of v1.0.3 amounts, rounded to nearest whole unit.
+Compatibility patch targets exactly 15 Station Support part IDs after the Station Modules FOR pass.
+Patch deletes only ModuleRWStationFinish; ModulePartVariants remains intact.
+PASS: exactly the intended three existing files changed; one compatibility patch added.
+PASS: all models, textures, armor variants, costs/masses, and other 13 part configs match v1.0.3 exactly.
+NOT RUN: live ModuleManager/KSP reload, VAB or flight verification. Existing saved resource values may need part replacement.

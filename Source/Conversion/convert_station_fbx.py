@@ -66,12 +66,13 @@ def child_start(w,name,pos=(0,0,0),collider=None,rotation=(0,0,0,1)):
 def child_end(w):w.i(1)
 
 class Mesh:
- def __init__(self):self.verts=[];self.normals=[];self.uv=[];self.tris=[];self.vcache={}
+ def __init__(self):self.verts=[];self.normals=[];self.uv=[];self.tris=[];self.vcache={};self.source_ids=[]
  def has_room(self,n):return len(self.verts)+n<=50000
  def get(self,key,pos,norm,uv):
   if key in self.vcache:return self.vcache[key]
   idx=len(self.verts);self.vcache[key]=idx
   self.verts.append(tuple(map(float,pos)))
+  self.source_ids.append(key[0])
   self.normals.append(tuple(map(float,norm)))
   self.uv.append(tuple(map(float,uv)))
   return idx
@@ -165,7 +166,7 @@ def generate_materials():
    for y in range(15,128,47):dr.line((0,y,127,y),fill=(194,150,76),width=1)
   im.save(MD/f'rw_{name}.png')
 
-def main(fbx, part_id, destination=None, hollow=False):
+def main(fbx, part_id, destination=None, hollow=False, metadata_path=None):
  global MD
  if part_id not in PARTS: raise ValueError('Unsupported part: '+part_id)
  if hollow and 'Adapter' in part_id: raise ValueError('Hollow mode is for girders only')
@@ -407,6 +408,18 @@ def main(fbx, part_id, destination=None, hollow=False):
  w.i(12,len(MATKEYS))
  for m in MATKEYS:w.string('rw_'+m);w.i(0)
  w.close()
+ if metadata_path:
+  import json, re
+  mapping={}
+  for (gr,m),meshes in grouped.items():
+   if gr!='body': continue
+   for partno,mesh in enumerate(meshes):
+    faces={}
+    for vi,gid in enumerate(mesh.source_ids):
+     match=re.match(r'^Battery_Face_(\d+)_',name(geo_owner[gid]))
+     if match: faces.setdefault(match.group(1),[]).append(vi)
+    if faces: mapping[f'Body_{m}_{partno:02}']=faces
+  Path(metadata_path).write_text(json.dumps(mapping),encoding='utf-8')
  print('GEOMETRY:',len(geometries),'objects')
  print('MATERIALS:',MATKEYS)
  print('GROUPS:',sorted((k,sum(len(v.verts) for v in meshes),sum(len(v.tris) for v in meshes)) for k,meshes in grouped.items()))

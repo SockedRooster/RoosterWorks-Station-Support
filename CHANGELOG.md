@@ -1,3 +1,29 @@
+# v1.0.8 — Stable visual overhaul, interiors, service wiring (2026-11-02)
+
+- New structural artwork, materials, battery drawers, tanks and xenon pack.
+- Nine editor Storage options on the six main girders; legacy hollow IDs retained hidden for saved crafts.
+- Battery-only EC capacity choices and liquid/monopropellant/xenon storage options.
+- Tank restraints, mating collars and corrected blue/yellow wiring alignment across occupied interiors.
+- Preserve appearance variants/adapters and include prior Hex battery-clearance fix.
+- New required dependencies: B9PartSwitch and ModuleManager; KSP 1.12.5 target.
+- Author in-game tested; release offline validator PASS.
+
+## Historical changelog
+
+# v1.0.6 — 1.25 m battery clearance fix
+
+- Correct battery/armor overlap on Hex Medium and Hex Long storage girders.
+- All battery assembly surfaces now lie at least 5 mm behind the inner armor face, for both light and grey armor.
+- Battery radial depth is reduced while its inner plane remains fixed, retaining tank-side space. Height and width remain unchanged; normals are updated for correct lighting.
+- Only the two Hex storage models and version metadata change. Resources, mass, price, all other models, armor finishes, attachment nodes, textures and compatibility patches remain unchanged from v1.0.5.
+
+Install this package's GameData contents over the previous version with KSP closed, then restart KSP. Existing crafts use the corrected model geometry automatically; no resource/config migration is introduced by this update.
+
+Offline clearance and exact-delta checks passed. Blender geometry preview was inspected. Actual KSP rendering still needs confirmation.
+
+
+## Previous changes
+
 # v1.0.5 — adapter finish update
 
 - Add White (default) / Armored Grey variants to the 1.25 m Hex, 2.5 m Octo and 3.75 m Octo adapters.

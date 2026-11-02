@@ -1,0 +1,27 @@
+PASS RW_Hex125_Adapter: resources, scaling, nodes, pricing, finishes
+PASS RW_HexSupport_Long: resources, scaling, nodes, pricing, finishes
+PASS RW_HexSupport_Long_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_HexSupport_Medium: resources, scaling, nodes, pricing, finishes
+PASS RW_HexSupport_Medium_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo25_Adapter: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo375Support_Medium: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo375Support_Medium_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo375Support_XL: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo375Support_XL_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_Octo375_Adapter: resources, scaling, nodes, pricing, finishes
+PASS RW_OctoSupport_Medium: resources, scaling, nodes, pricing, finishes
+PASS RW_OctoSupport_Medium_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_OctoSupport_XL: resources, scaling, nodes, pricing, finishes
+PASS RW_OctoSupport_XL_Hollow: resources, scaling, nodes, pricing, finishes
+PASS RW_Hex125_Adapter: all previous mesh data and colliders identical; grey panels verified
+PASS RW_HexSupport_Long: all previous mesh data and colliders identical; grey panels verified
+PASS RW_HexSupport_Long_Hollow: all previous mesh data and colliders identical; grey panels verified
+PASS RW_HexSupport_Medium: all previous mesh data and colliders identical; grey panels verified
+PASS RW_HexSupport_Medium_Hollow: all previous mesh data and colliders identical; grey panels verified
+PASS RW_Octo25_Adapter: all previous mesh data and colliders identical; grey panels verified
+PASS RW_OctoSupport_Medium: all previous mesh data and colliders identical; grey panels verified
+PASS RW_OctoSupport_Medium_Hollow: all previous mesh data and colliders identical; grey panels verified
+PASS RW_OctoSupport_XL: all previous mesh data and colliders identical; grey panels verified
+PASS RW_OctoSupport_XL_Hollow: all previous mesh data and colliders identical; grey panels verified
+PASS v1.0.3: 15 parts, 10 shared models, all regression checks passed.
+NOT RUN: KSP editor, flight, saved-craft resource migration, or Kerbalism tests.

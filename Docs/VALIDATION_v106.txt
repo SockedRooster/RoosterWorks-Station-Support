@@ -1,0 +1,18 @@
+v1.0.6 Hex battery clearance verification
+Clearance target: 5 mm inside both white and grey armor.
+RW_HexSupport_Medium face 1: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Medium face 2: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Medium face 3: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Medium face 4: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Medium face 5: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Medium face 6: original battery depth 77.07 mm -> 62.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+PASS RW_HexSupport_Medium: only mapped battery vertices/normals changed; frame, tanks, armor, UVs, triangles and colliders preserved.
+RW_HexSupport_Long face 1: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Long face 2: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Long face 3: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Long face 4: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Long face 5: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+RW_HexSupport_Long face 6: original battery depth 77.07 mm -> 22.00 mm; inner plane unchanged; 5.00 mm armor clearance.
+PASS RW_HexSupport_Long: only mapped battery vertices/normals changed; frame, tanks, armor, UVs, triangles and colliders preserved.
+PASS full release delta: exactly two Hex storage models and version metadata changed. All configurations, capacities, hollow/Octo/adapter models, finishes, textures and patches unchanged.
+NOT RUN: KSP rendering/flight. Clearance verified against shipped white and grey armor geometry.

@@ -1,0 +1,26 @@
+GEOMETRY: 217 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 3216, 2256), (('armor', 'white'), 2304, 1128), (('body', 'LED'), 8544, 11520), (('body', 'battery'), 2304, 1128), (('body', 'bronze'), 32924, 30468), (('body', 'frame'), 6000, 4796), (('body', 'label'), 12018, 15008), (('body', 'steel'), 22320, 15984), (('body', 'titanium'), 884, 636)]
+BBOX_METERS [-0.64, -0.9187, -0.5613] [0.64, 0.9187, 0.5613]
+TRIANGLES 82924 MU_BYTES 4112806
+OUTPUT C:\Users\rida6\.codex\.chatgpt-projects\g-p-6ac8f1e835cc819196ce79f44b4b0698\work\battery-audit\RW_HexSupport_Medium.mu
+PASS exact body mapping: RW_HexSupport_Medium
+RW_HexSupport_Medium face 1: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+RW_HexSupport_Medium face 2: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+RW_HexSupport_Medium face 3: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+RW_HexSupport_Medium face 4: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+RW_HexSupport_Medium face 5: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+RW_HexSupport_Medium face 6: battery radial range 0.409290..0.486360; armor inner/outer 0.476290..0.499290; penetration past inner 10.07 mm
+GEOMETRY: 238 objects
+MATERIALS: ['steel', 'frame', 'white', 'bronze', 'titanium', 'battery', 'LED', 'label']
+GROUPS: [(('armor', 'bronze'), 3216, 2256), (('armor', 'white'), 2304, 1128), (('body', 'LED'), 8544, 11520), (('body', 'battery'), 2304, 1128), (('body', 'bronze'), 43280, 37896), (('body', 'frame'), 7332, 5744), (('body', 'label'), 12018, 15008), (('body', 'steel'), 22320, 15984), (('body', 'titanium'), 3536, 2544)]
+BBOX_METERS [-0.64, -1.6187, -0.5613] [0.64, 1.6187, 0.5613]
+TRIANGLES 93208 MU_BYTES 4695090
+OUTPUT C:\Users\rida6\.codex\.chatgpt-projects\g-p-6ac8f1e835cc819196ce79f44b4b0698\work\battery-audit\RW_HexSupport_Long.mu
+PASS exact body mapping: RW_HexSupport_Long
+RW_HexSupport_Long face 1: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm
+RW_HexSupport_Long face 2: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm
+RW_HexSupport_Long face 3: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm
+RW_HexSupport_Long face 4: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm
+RW_HexSupport_Long face 5: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm
+RW_HexSupport_Long face 6: battery radial range 0.449290..0.526360; armor inner/outer 0.476290..0.499290; penetration past inner 50.07 mm

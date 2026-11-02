@@ -63,9 +63,13 @@ class Reader:
                 while True:
                     c = self.i()
                     if c == 22: break
-                    if c == 14: mesh['verts'] = [self.f(3) for _ in range(nv)]
+                    if c == 14:
+                        mesh['verts_offset'] = self.offset
+                        mesh['verts'] = [self.f(3) for _ in range(nv)]
                     elif c == 15: mesh['uv'] = [self.f(2) for _ in range(nv)]
-                    elif c == 17: mesh['normals'] = [self.f(3) for _ in range(nv)]
+                    elif c == 17:
+                        mesh['normals_offset'] = self.offset
+                        mesh['normals'] = [self.f(3) for _ in range(nv)]
                     elif c == 19:
                         ni = self.i()
                         assert ni % 3 == 0

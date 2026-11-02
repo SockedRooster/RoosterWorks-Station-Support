@@ -23,5 +23,13 @@
       "find": "RoosterWorksStationSupport",
       "install_to": "GameData"
     }
+  ],
+  "depends": [
+    {
+      "name": "ModuleManager"
+    },
+    {
+      "name": "B9PartSwitch"
+    }
   ]
 }
