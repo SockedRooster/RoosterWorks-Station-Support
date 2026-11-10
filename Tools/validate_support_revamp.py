@@ -9,16 +9,6 @@ from native_model import load,walk
 from config_nodes import parse
 from build_support_revamp import SPECS,SERVICE_LANES,CORE_WIRE_OFFSETS,OUTER_WIRE_OFFSETS,core_wire_point,harness_path
 GD=R/'GameData/RoosterWorksStationSupport';BASE=R/'Source/RevampBaseline/GameData/RoosterWorksStationSupport';M=GD/'Models'
-
-# Some original KSP config display titles contain Windows-1252 punctuation.
-# Read legacy configs without changing the in-game-tested files' bytes.
-def read_cfg(path):
-    payload=Path(path).read_bytes()
-    try:
-        return payload.decode('utf-8-sig')
-    except UnicodeDecodeError:
-        return payload.decode('cp1252')
-
 report=json.loads((R/'Reports/SUPPORT_REVAMP_01.json').read_text());stats=dict(models=0,parts=0,external_colliders=0,stock_appearance_options=0,storage_options=0,hollow_options=0,resource_definitions=0,interface_caps=0,max_mesh_vertices=0,visible_triangle_counts={})
 models={}
 for f in M.glob('*.mu'):
@@ -54,12 +44,12 @@ for f in M.glob('*.mu'):
     stats['models']+=1
 definitions={}
 for f in (GD/'Compatibility').glob('BatterySwitch*.cfg'):
-    for tank in parse(read_cfg(f)).children:
+    for tank in parse(f.read_text()).children:
         assert tank.header=='B9_TANK_TYPE';name=tank.get('name');assert name not in definitions;definitions[name]=tank
         assert all(float(r.get('unitsPerVolume'))>0 for r in tank.children if r.header=='RESOURCE')
 stats['resource_definitions']=len(definitions)
 for f in (GD/'Parts').glob('*.cfg'):
-    part=parse(read_cfg(f)).children[0];old=parse(read_cfg(BASE/'Parts'/f.name)).children[0];modelname=next(n.get('model').split('/')[-1] for n in part.children if n.header=='MODEL');model=models[modelname];nodes=list(walk(model.root));names={n['name'] for p,n in nodes}
+    part=parse(f.read_text()).children[0];old=parse((BASE/'Parts'/f.name).read_text(encoding='utf-8-sig')).children[0];modelname=next(n.get('model').split('/')[-1] for n in part.children if n.header=='MODEL');model=models[modelname];nodes=list(walk(model.root));names={n['name'] for p,n in nodes}
     for key,value in old.values:
         if key=='entryCost':assert part.get(key)==str(int(float(value)+.5)),(f.name,'invalid integer entryCost')
         elif key=='category' and f.stem.endswith('_Hollow'):assert part.get(key)=='none'
@@ -90,7 +80,7 @@ for f in (GD/'Parts').glob('*.cfg'):
             tank=definitions[subtype.get('tankType')];resources={n.get('name'):float(n.get('unitsPerVolume'))*volume for n in tank.children if n.header=='RESOURCE'};assert resources
             if subtype.get('name')=='LFO':assert abs(resources['LiquidFuel']/resources['Oxidizer']-9/11)<1e-9
             if subtype.get('name') in ('Standard','Battery'):
-                previous=parse(read_cfg(BASE/'Compatibility'/('BatterySwitch_'+part.get('name')+'.cfg')));legacy=next(n for n in previous.children if n.get('name')==subtype.get('tankType'));expected={n.get('name'):float(n.get('unitsPerVolume')) for n in legacy.children};assert resources==expected
+                previous=parse((BASE/'Compatibility'/('BatterySwitch_'+part.get('name')+'.cfg')).read_text());legacy=next(n for n in previous.children if n.get('name')==subtype.get('tankType'));expected={n.get('name'):float(n.get('unitsPerVolume')) for n in legacy.children};assert resources==expected
             assert len(visible)==1 and len([n for p,n in active if 'collider' in n and n['name'] in ('EquipmentCollider','RWSS_PressureCollider')])==1
             stats['storage_options']+=1
     stats['parts']+=1
@@ -98,7 +88,7 @@ assert stats['models']==10 and stats['parts']==15 and stats['storage_options']==
 adapter_hashes=json.loads((R/'Reports/ADAPTER_BASELINE_SHA256.json').read_text())
 for path,digest in adapter_hashes.items():assert hashlib.sha256((GD/path).read_bytes()).hexdigest()==digest,(path,'accepted adapter changed')
 for f in (GD/'Parts').glob('*.cfg'):
-    part=parse(read_cfg(f)).children[0]
+    part=parse(f.read_text()).children[0]
     if 'Adapter' in f.name:continue
     if f.stem.endswith('_Hollow'):
         assert part.get('category')=='none' and part.get('TechHidden')=='True'
@@ -139,5 +129,5 @@ for key,model in models.items():
                 other=harness_path(d,length,sign,a,'yellow' if color=='blue' else 'blue')
                 assert min(np.linalg.norm(p-q) for p,q in zip(pts,other))>.014*s,'cables overlap'
                 stats['core_wiring_junctions']+=1
-report.update(status='PASS offline; in-game tested and approved by author for v1.0.8 release',validation=stats)
+report.update(status='PASS offline; KSP selector, visual and gameplay acceptance pending',validation=stats)
 (R/'Reports/SUPPORT_REVAMP_01.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status']);print(json.dumps({k:v for k,v in stats.items() if k!='visible_triangle_counts'},indent=2))

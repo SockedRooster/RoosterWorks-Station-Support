@@ -1,14 +1,23 @@
-# v1.0.8 — Stable visual overhaul, interiors, service wiring (2026-11-02)
+# RoosterWorks Station Support v1.0.10
 
-- New structural artwork, materials, battery drawers, tanks and xenon pack.
-- Nine editor Storage options on the six main girders; legacy hollow IDs retained hidden for saved crafts.
-- Battery-only EC capacity choices and liquid/monopropellant/xenon storage options.
-- Tank restraints, mating collars and corrected blue/yellow wiring alignment across occupied interiors.
-- Preserve appearance variants/adapters and include prior Hex battery-clearance fix.
-- New required dependencies: B9PartSwitch and ModuleManager; KSP 1.12.5 target.
-- Author in-game tested; release offline validator PASS.
+- Adds three wired girder adapters linking 1.25, 2.5 and 3.75 m frames, plus a six-way storage hub and docking coupler in each diameter.
+- Adds optional Kerbalism life-support interiors across the straight girder sizes, with oxygen, nitrogen, food and water capacity scaled to the girder.
+- Updates girder joints, wire connections and label orientation. Docking couplers include an integrated battery, a steady approach light and aligned docking control transforms.
+- Protects B9-selected battery capacity during undocking. KRnD upgrades are disabled on the six switchable storage girders and three hubs.
+- Recommends RoosterWorks Station Modules and RoosterWorks Ground Modules in CKAN.
 
-## Historical changelog
+## Known issue
+
+The docking-port light fades out once when Blink is enabled and stays dark. Turning Blink off restores steady illumination.
+
+# v1.0.9 — 2026-11-02
+
+- Detailed truss frames, larger battery banks, enlarged pressure vessels, seated restraint mounts and supports reaching the outer frame.
+- One main-part selector offers Standard equipment, Battery Only, Empty Frame, Central Service Core, LF/Ox, Liquid Fuel, Oxidizer, Monopropellant and Xenon.
+- Matching core end collars and continuous blue/yellow wiring, with corrected branch-to-core alignment.
+- Independent open/white/grey armor choices; accepted adapters retained.
+- Original Hollow part IDs remain hidden compatibility entries so existing craft can still load them.
+- Corrected native model texture tables and integer entry costs. Fuel capacities follow enlarged tanks; existing Standard/Battery capacities are retained.
 
 # v1.0.6 — 1.25 m battery clearance fix
 

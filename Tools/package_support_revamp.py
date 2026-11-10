@@ -7,8 +7,8 @@ report=json.loads((R/'Reports/SUPPORT_REVAMP_01.json').read_text());assert repor
 files=sorted(p for p in R.rglob('*') if p.is_file() and not any(x in p.parts for x in ('.build-deps','__pycache__')) and p.suffix not in ('.pyc','.blend1') and p.name!='CHECKSUMS-SHA256.txt')
 (R/'CHECKSUMS-SHA256.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.relative_to(R).as_posix()+'\n' for p in files))
 for kind in ('Install','Developer-Source'):
-    target=R.parent/(f'RoosterWorks-Station-Support-v1.0.8-{kind}.zip' if kind=='Developer-Source' else 'RoosterWorks-Station-Support-v1.0.8.zip')
-    selected=files+[R/'CHECKSUMS-SHA256.txt'] if kind=='Developer-Source' else [p for p in files if p.is_relative_to(R/'GameData') or p.name in ('README.md','RELEASE_NOTES.md','LICENSE')]
+    target=R.parent/f'RoosterWorks-Station-Support-v1.0.8-dev.4-{kind}.zip'
+    selected=files+[R/'CHECKSUMS-SHA256.txt'] if kind=='Developer-Source' else [p for p in files if p.is_relative_to(R/'GameData') or p.name in ('SUPPORT_WIRING_04.md','SUPPORT_INTEGRATION_03.md','SUPPORT_REVAMP_01.json','LICENSE')]
     with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=1) as z:
         for p in selected:
             z.write(p,p.relative_to(R).as_posix());time.sleep(.025)

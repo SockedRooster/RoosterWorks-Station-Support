@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "accepted_archive": "RoosterWorks-Station-Support-v1.0.10-test.9-Install.zip",
+  "archive_sha256": "159173e725a60328dd4cb5c838044b3122a3af21aabc971cbdd4508f1326d41c",
+  "parts": 24,
+  "runtime_files": 83,
+  "runtime_differences": [
+    "GameData/RoosterWorksStationSupport/RoosterWorksStationSupport.version",
+    "GameData/RoosterWorksStationSupport/INSTALL.txt"
+  ],
+  "model_references_resolved": true,
+  "known_issue": "The docking-port light fades out once when Blink is enabled and stays dark. Turning Blink off restores steady illumination."
+}

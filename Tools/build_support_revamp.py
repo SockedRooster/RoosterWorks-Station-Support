@@ -254,7 +254,7 @@ def main():
         write(model,M/path.name);audit.append(dict(model=path.name,meshes=sum('mesh' in n for _,n in walk(model.root)),triangles=sum(len(t) for _,n in walk(model.root) if 'mesh' in n for t in n['mesh']['submeshes'])))
         print(path.name,'complete',flush=True)
     table=configs(volumes)
-    version=GD/'RoosterWorksStationSupport.version';data=json.loads(version.read_text());data['VERSION']=dict(MAJOR=1,MINOR=0,PATCH=8,BUILD=4);version.write_text(json.dumps(data,indent=2)+'\n')
+    version=GD/'RoosterWorksStationSupport.version';data=json.loads(version.read_text());data['VERSION']=json.loads((R/'RELEASE_METADATA.json').read_text())['version_tuple'] if (R/'RELEASE_METADATA.json').exists() else dict(MAJOR=1,MINOR=0,PATCH=8,BUILD=4);version.write_text(json.dumps(data,indent=2)+'\n')
     meta=R/'CKAN/RoosterWorksStationSupport.netkan';data=json.loads(meta.read_text());data['depends']=[dict(name='ModuleManager'),dict(name='B9PartSwitch')];meta.write_text(json.dumps(data,indent=2)+'\n')
     (R/'Reports/SUPPORT_REVAMP_01.json').write_text(json.dumps(dict(status='Built; validation pending',models=audit,capacities=table,physical_volume=volumes),indent=2))
 

@@ -1,0 +1,16 @@
+{
+  "name": "RoosterWorks Station Support",
+  "version": "1.0.10",
+  "tag": "v1.0.10",
+  "date": "2026-11-09",
+  "repository": "SockedRooster/RoosterWorks-Station-Support",
+  "addon": "RoosterWorksStationSupport",
+  "accepted_source": "RoosterWorks-Station-Support-v1.0.10-test.9-Install.zip",
+  "validation_report": "RELEASE_VALIDATION.json",
+  "version_tuple": {
+    "MAJOR": 1,
+    "MINOR": 0,
+    "PATCH": 10,
+    "BUILD": 0
+  }
+}

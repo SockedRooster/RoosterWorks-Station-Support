@@ -1,10 +1,10 @@
 {
   "NAME": "RoosterWorks Station Support",
-  "URL": "https://github.com/SockedRooster/RoosterWorks-Station-Support/releases",
+  "URL": "https://raw.githubusercontent.com/SockedRooster/RoosterWorks-Station-Support/main/GameData/RoosterWorksStationSupport/RoosterWorksStationSupport.version",
   "VERSION": {
     "MAJOR": 1,
     "MINOR": 0,
-    "PATCH": 8,
+    "PATCH": 10,
     "BUILD": 0
   },
   "KSP_VERSION": {
@@ -12,5 +12,5 @@
     "MINOR": 12,
     "PATCH": 5
   },
-  "DOWNLOAD": "https://github.com/SockedRooster/RoosterWorks-Station-Support/releases"
+  "DOWNLOAD": "https://github.com/SockedRooster/RoosterWorks-Station-Support/releases/latest"
 }
