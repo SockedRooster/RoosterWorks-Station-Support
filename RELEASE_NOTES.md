@@ -4,7 +4,7 @@
 - Adds optional Kerbalism life-support interiors across the straight girder sizes, with oxygen, nitrogen, food and water capacity scaled to the girder.
 - Updates girder joints, wire connections and label orientation. Docking couplers include an integrated battery, a steady approach light and aligned docking control transforms.
 - Protects B9-selected battery capacity during undocking. KRnD upgrades are disabled on the six switchable storage girders and three hubs.
-- Recommends RoosterWorks Station Modules and RoosterWorks Ground Modules in CKAN.
+- Recommends RoosterWorks Station Modules, RoosterWorks Ground Modules, and RoosterWorks Inflatable Fuel Depot in CKAN.
 
 ## Known issue
 
